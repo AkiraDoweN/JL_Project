@@ -7,10 +7,11 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public int MoveSpeed = 20;
-
     public int startHp = 100;
     public int NowHp = 0;
 
+    float WaitingTime = 2.0f;
+    float timer = 0.0f;
     float HorizontalMove;
     float VerticalMove;
 
@@ -18,6 +19,13 @@ public class Player : MonoBehaviour
     public Slider hpSlider;
 
     Vector3 look;
+
+    enum Property //속성
+    {
+        Blue, //비
+        Yellow, //구름
+        Green,  //바람
+    }
 
     void Start()
     {
@@ -29,6 +37,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
+            timer += Time.deltaTime;
             VerticalMove = Input.GetAxisRaw("Vertical");
             HorizontalMove = Input.GetAxisRaw("Horizontal");
             look = VerticalMove * Vector3.forward + HorizontalMove * Vector3.right;
@@ -37,7 +46,11 @@ public class Player : MonoBehaviour
             animator.SetInteger("playerState", 1);
             if (Input.GetKey(KeyCode.Space)) // dash
             {
-                MoveSpeed = 40;
+                if (timer > WaitingTime)
+                {
+                    timer = 0.0f;
+                    MoveSpeed = 40;
+                }
             }
             else
                 MoveSpeed = 20;
