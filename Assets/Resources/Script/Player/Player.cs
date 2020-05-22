@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+
     public int MoveSpeed = 20;
     public int startHp = 100;
     public int NowHp = 0;
@@ -20,26 +21,8 @@ public class Player : MonoBehaviour
 
     Vector3 look;
 
-    public Light rainLight;
-    public Light cloudLight;
-    public Light windLight;
-
-    //public enum Property //속성
-    //{
-    //    Rain, //파랑
-    //    Cloud, //노랑
-    //    Wind,  //초록
-    //};
-
-    //Property rainProperty = Property.Rain;
-    //Property cloudProperty = Property.Cloud;
-    //Property windProperty = Property.Wind;
-
     void Start()
     {
-        rainLight.enabled = true;
-        cloudLight.enabled = false;
-        windLight.enabled = false;
         animator = GetComponent<Animator>();
         NowHp = startHp;
     }
@@ -70,25 +53,6 @@ public class Player : MonoBehaviour
         {
             animator.SetInteger("playerState", 2);
         }
-        else if (Input.GetKey(KeyCode.J)) //Rain
-        {
-            rainLight.enabled = true;
-            cloudLight.enabled = false;
-            windLight.enabled = false;
-        }
-        else if (Input.GetKey(KeyCode.K)) //Cloud
-        {
-            rainLight.enabled = false;
-            cloudLight.enabled = true;
-            windLight.enabled = false;
-        }
-        else if (Input.GetKey(KeyCode.L)) //Wind
-        {
-            rainLight.enabled = false;
-            cloudLight.enabled = false;
-            windLight.enabled = true;
-        }
-
         else
         {
             animator.SetInteger("playerState", 0);
@@ -109,6 +73,5 @@ public class Player : MonoBehaviour
     public void Dead()
     {
         //animator.SetInteger("playerState", 4); //죽는 애니메이션
-
     }
 }
