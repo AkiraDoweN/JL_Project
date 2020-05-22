@@ -70,19 +70,19 @@ public class Player : MonoBehaviour
         {
             animator.SetInteger("playerState", 2);
         }
-        else if (Input.GetKey(KeyCode.J))
+        else if (Input.GetKey(KeyCode.J)) //Rain
         {
             rainLight.enabled = true;
             cloudLight.enabled = false;
             windLight.enabled = false;
         }
-        else if (Input.GetKey(KeyCode.K))
+        else if (Input.GetKey(KeyCode.K)) //Cloud
         {
             rainLight.enabled = false;
             cloudLight.enabled = true;
             windLight.enabled = false;
         }
-        else if (Input.GetKey(KeyCode.L))
+        else if (Input.GetKey(KeyCode.L)) //Wind
         {
             rainLight.enabled = false;
             cloudLight.enabled = false;
