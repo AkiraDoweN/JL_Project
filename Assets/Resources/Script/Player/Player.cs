@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
         {
             timer += Time.deltaTime;
             VerticalMove = Input.GetAxisRaw("Vertical");
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
             else
                 MoveSpeed = 20;
         }   
-        else if (Input.GetKey(KeyCode.C))
+        else if (Input.GetKey(KeyCode.R))
         {
             animator.SetInteger("playerState", 2);
         }

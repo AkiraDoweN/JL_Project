@@ -39,7 +39,7 @@ public class Attack : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.J)) //Rain
+        if (Input.GetKey(KeyCode.Q)) //Rain
         {
             rainLight.enabled = true;
             cloudLight.enabled = false;
@@ -49,7 +49,7 @@ public class Attack : MonoBehaviour
             cloudProperty = false;
             windProperty = false;
         }
-        else if (Input.GetKey(KeyCode.K)) //Cloud
+        else if (Input.GetKey(KeyCode.W)) //Cloud
         {
             rainLight.enabled = false;
             cloudLight.enabled = true;
@@ -59,7 +59,7 @@ public class Attack : MonoBehaviour
             cloudProperty = true;
             windProperty = false;
         }
-        else if (Input.GetKey(KeyCode.L)) //Wind
+        else if (Input.GetKey(KeyCode.E)) //Wind
         {
             rainLight.enabled = false;
             cloudLight.enabled = false;
