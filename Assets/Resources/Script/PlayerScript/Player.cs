@@ -20,15 +20,26 @@ public class Player : MonoBehaviour
 
     Vector3 look;
 
-    enum Property //속성
-    {
-        Blue, //비
-        Yellow, //구름
-        Green,  //바람
-    }
+    public Light rainLight;
+    public Light cloudLight;
+    public Light windLight;
+
+    //public enum Property //속성
+    //{
+    //    Rain, //파랑
+    //    Cloud, //노랑
+    //    Wind,  //초록
+    //};
+
+    //Property rainProperty = Property.Rain;
+    //Property cloudProperty = Property.Cloud;
+    //Property windProperty = Property.Wind;
 
     void Start()
     {
+        rainLight.enabled = true;
+        cloudLight.enabled = false;
+        windLight.enabled = false;
         animator = GetComponent<Animator>();
         NowHp = startHp;
     }
@@ -58,6 +69,24 @@ public class Player : MonoBehaviour
         else if (Input.GetKey(KeyCode.C))
         {
             animator.SetInteger("playerState", 2);
+        }
+        else if (Input.GetKey(KeyCode.J))
+        {
+            rainLight.enabled = true;
+            cloudLight.enabled = false;
+            windLight.enabled = false;
+        }
+        else if (Input.GetKey(KeyCode.K))
+        {
+            rainLight.enabled = false;
+            cloudLight.enabled = true;
+            windLight.enabled = false;
+        }
+        else if (Input.GetKey(KeyCode.L))
+        {
+            rainLight.enabled = false;
+            cloudLight.enabled = false;
+            windLight.enabled = true;
         }
 
         else
