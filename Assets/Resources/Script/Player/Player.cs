@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
             this.transform.rotation = Quaternion.LookRotation(look);
             this.transform.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
             animator.SetInteger("playerState", 1);
+
             if (Input.GetKey(KeyCode.Space)) // dash
             {
                 if (timer > WaitingTime)
@@ -46,12 +47,20 @@ public class Player : MonoBehaviour
                     MoveSpeed = 40;
                 }
             }
+            else if (Input.GetKey(KeyCode.R))
+            {
+                animator.SetInteger("playerState", 2);
+                MoveSpeed = 0;
+            }
             else
+            {
                 MoveSpeed = 20;
-        }   
+            }
+        }
         else if (Input.GetKey(KeyCode.R))
         {
             animator.SetInteger("playerState", 2);
+            MoveSpeed = 0;
         }
         else
         {
