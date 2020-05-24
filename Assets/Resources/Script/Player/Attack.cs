@@ -1,35 +1,77 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum TYPE
+{
+    RAIN,
+    CLOUD,
+    WIND
+}
 public class Attack : MonoBehaviour
 {
     private Transform weapon;
     private Gurgugi gurgugi;
 
-    public int Damage = 20;
-
-    //속성
-    bool rainProperty = true;
-    bool cloudProperty = true;
-    bool windProperty = true;
-
+    [SerializeField]
+    private int Damage = 20;
+    [SerializeField]
+    private TYPE type;
     //속성에 따른 빛
-    public Light rainLight;
-    public Light cloudLight;
-    public Light windLight;
+    [SerializeField]
+    private Light playerLight;
+
 
     void Start()
     {
         weapon = GetComponent<Transform>();
         gurgugi = GetComponent<Gurgugi>();
-
-        rainLight.enabled = true;
-        cloudLight.enabled = false;
-        windLight.enabled = false;
+        type = TYPE.RAIN;
     }
 
     void Update()
+    {
+        MonsterCheck();
+        WeaponChange();
+    }
+
+    void WeaponChange()
+    {
+        if (Input.GetKey(KeyCode.Q)) //Rain
+        {
+            type = TYPE.RAIN;
+        }
+        else if (Input.GetKey(KeyCode.W)) //Cloud
+        {
+            type = TYPE.CLOUD;
+        }
+        else if (Input.GetKey(KeyCode.E)) //Wind
+        {
+            type = TYPE.WIND;
+        }
+        else
+        {
+            Damage = 20;
+        }
+        SetWeapon();
+    }
+    
+    void SetWeapon()
+    {
+        switch(type)
+        {
+            case TYPE.RAIN:
+                playerLight.color = new Color(0.21f, 0.93f, 0.96f, 1);
+                break;
+            case TYPE.CLOUD:
+                playerLight.color = new Color(0.87f, 0.92f, 0.02f, 1);
+                break;
+            case TYPE.WIND:
+                playerLight.color = new Color(0, 1, 0.01f, 1);
+                break;
+        }
+    }
+
+    void MonsterCheck()
     {
         Collider[] collisions = Physics.OverlapCapsule(weapon.position, weapon.position, 0.3f);
         foreach (Collider collider in collisions)
@@ -40,43 +82,8 @@ public class Attack : MonoBehaviour
                 break;
             }
         }
-
-        if (Input.GetKey(KeyCode.Q)) //Rain
-        {
-            rainLight.enabled = true;
-            cloudLight.enabled = false;
-            windLight.enabled = false;
-
-            rainProperty = true;
-            cloudProperty = false;
-            windProperty = false;
-        }
-        else if (Input.GetKey(KeyCode.W)) //Cloud
-        {
-            rainLight.enabled = false;
-            cloudLight.enabled = true;
-            windLight.enabled = false;
-
-            rainProperty = false;
-            cloudProperty = true;
-            windProperty = false;
-        }
-        else if (Input.GetKey(KeyCode.E)) //Wind
-        {
-            rainLight.enabled = false;
-            cloudLight.enabled = false;
-            windLight.enabled = true;
-
-            rainProperty = false;
-            cloudProperty = false;
-            windProperty = true;
-        }
-        else
-        {
-            Damage = 20;
-        }
-
     }
+
     void PlayerAttack(Collider colider)
     {
         // colider.gameObject.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
