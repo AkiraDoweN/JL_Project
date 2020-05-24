@@ -1516,7 +1516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02306d12062da394ca994f0420995de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 20
+  MoveSpeed: 25
   startHp: 100
   NowHp: 0
   hpSlider: {fileID: 0}
