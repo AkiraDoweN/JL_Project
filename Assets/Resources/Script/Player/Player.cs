@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
                 if (timer > WaitingTime)
                 {
                     timer = 0.0f;
-                    MoveSpeed = 100;
+                    MoveSpeed = 40;
                 }
             }
             else if (Input.GetKey(KeyCode.R))
