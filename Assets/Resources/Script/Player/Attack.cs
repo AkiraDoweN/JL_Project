@@ -9,10 +9,12 @@ public class Attack : MonoBehaviour
 
     public int Damage = 20;
 
+    //속성
     bool rainProperty = true;
     bool cloudProperty = true;
     bool windProperty = true;
 
+    //속성에 따른 빛
     public Light rainLight;
     public Light cloudLight;
     public Light windLight;
@@ -78,9 +80,10 @@ public class Attack : MonoBehaviour
     void PlayerAttack(Collider colider)
     {
         // colider.gameObject.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
-
+        
+        //몬스터속성 script bool값추가 (몬스터 속성과 Player 속성이 같을 경우 데미지 2배)
         //if (rainProperty == true && gurgugi.Property == true)
-        //{//몬스터속성 script bool값추가
+        //{
         //    Damage = 40;
         //}
         //else if (cloudProperty == true && gurgugi.Property == true)
