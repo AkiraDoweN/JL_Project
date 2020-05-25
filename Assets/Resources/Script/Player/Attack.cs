@@ -60,13 +60,13 @@ public class Attack : MonoBehaviour
         switch(type)
         {
             case TYPE.RAIN:
-                playerLight.color = new Color(0.21f, 0.93f, 0.96f, 1);
+                playerLight.color = new Color(0.13f, 0.56f, 0.99f, 1);
                 break;
             case TYPE.CLOUD:
                 playerLight.color = new Color(0.87f, 0.92f, 0.02f, 1);
                 break;
             case TYPE.WIND:
-                playerLight.color = new Color(0, 1, 0.01f, 1);
+                playerLight.color = new Color(0.76f, 1, 0.18f, 1);
                 break;
         }
     }
