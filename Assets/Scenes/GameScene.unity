@@ -883,6 +883,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3459204097927697604, guid: ded9b08e63bfb7846ad67517ec7bec6d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3918194549914791321, guid: ded9b08e63bfb7846ad67517ec7bec6d,
         type: 3}
       propertyPath: m_RenderMode
@@ -892,6 +897,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Intensity
       value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5186784795920728792, guid: ded9b08e63bfb7846ad67517ec7bec6d,
+        type: 3}
+      propertyPath: m_TagString
+      value: PlayerWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 8120405006745891800, guid: ded9b08e63bfb7846ad67517ec7bec6d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8879910282772056627, guid: ded9b08e63bfb7846ad67517ec7bec6d,
         type: 3}
