@@ -10,7 +10,6 @@ public enum TYPE
 public class Attack : MonoBehaviour
 {
     private Transform weapon;
-    private Gurgugi gurgugi;
 
     [SerializeField]
     private int Damage = 20;
@@ -19,12 +18,13 @@ public class Attack : MonoBehaviour
     //속성에 따른 빛
     [SerializeField]
     private Light playerLight;
-    
+    public GameObject coll;
+    float attackTimer = 0;
+
 
     void Start()
     {
         weapon = GetComponent<Transform>();
-        gurgugi = GetComponent<Gurgugi>();
         type = TYPE.RAIN;
     }
 
@@ -73,18 +73,37 @@ public class Attack : MonoBehaviour
 
     void MonsterCheck()
     {
-        if (Input.GetKey(KeyCode.R))
+        if (attackTimer == 0)
         {
-            Collider[] collisions = Physics.OverlapCapsule(weapon.position, weapon.position, 0.3f);
-            foreach (Collider collider in collisions)
+            if (Input.GetKey(KeyCode.R))
             {
-                if (collider.gameObject.tag == "Monster")
-                {
-                    PlayerAttack(collider);
-                    break;
-                }
+                attackTimer = Time.time;
+
+                //Collider[] collisions = Physics.OverlapCapsule(weapon.position, weapon.position, 0.3f);
+                //foreach (Collider collider in collisions)
+                //{
+                //    if (collider.gameObject.tag == "Monster")
+                //    {
+                //        collider.GetComponent<Gurgugi>().Dead();
+                //        PlayerAttack(collider);
+                //        break;
+                //    }
+                //}
             }
         }
+        else
+        {
+            if (Time.time - attackTimer > 0.2f)
+            {
+                coll.SetActive(true);
+            }
+            if (Time.time - attackTimer > 0.51f)
+            {
+                coll.SetActive(false);
+                attackTimer = 0;
+            }
+        }
+        
     }
 
     void PlayerAttack(Collider colider)

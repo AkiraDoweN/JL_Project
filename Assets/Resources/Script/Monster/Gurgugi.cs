@@ -46,7 +46,7 @@ public class Gurgugi : Monster
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "PlayerWeapon")
+        if (other.tag == "PlayerWeapon")
         {
             Dead();
         }
@@ -120,7 +120,7 @@ public class Gurgugi : Monster
         }
     }
 
-    void Dead()
+    public void Dead()
     {
         anim.SetInteger("state", 2);
         if (StateTimechk[2] == 0)
