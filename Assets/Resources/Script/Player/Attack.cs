@@ -73,13 +73,16 @@ public class Attack : MonoBehaviour
 
     void MonsterCheck()
     {
-        Collider[] collisions = Physics.OverlapCapsule(weapon.position, weapon.position, 0.3f);
-        foreach (Collider collider in collisions)
+        if (Input.GetKey(KeyCode.R))
         {
-            if (collider.gameObject.tag == "Monster")
+            Collider[] collisions = Physics.OverlapCapsule(weapon.position, weapon.position, 0.3f);
+            foreach (Collider collider in collisions)
             {
-                PlayerAttack(collider);
-                break;
+                if (collider.gameObject.tag == "Monster")
+                {
+                    PlayerAttack(collider);
+                    break;
+                }
             }
         }
     }
