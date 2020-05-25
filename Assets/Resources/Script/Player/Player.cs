@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 {
 
     public int MoveSpeed = 20;
-    public int startHp = 100;
+    public int startHp = 800;
     public int NowHp = 0;
 
     float WaitingTime = 2.0f;
