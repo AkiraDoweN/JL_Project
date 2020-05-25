@@ -19,7 +19,7 @@ public class Attack : MonoBehaviour
     //속성에 따른 빛
     [SerializeField]
     private Light playerLight;
-
+    
 
     void Start()
     {

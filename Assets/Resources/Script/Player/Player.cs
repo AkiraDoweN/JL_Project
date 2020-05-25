@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
             {
                 if (timer > WaitingTime)
                 {
+                    animator.SetInteger("playerState", 4);
                     timer = 0.0f;
                     MoveSpeed = 40;
                 }
@@ -66,6 +67,7 @@ public class Player : MonoBehaviour
         {
             animator.SetInteger("playerState", 0);
             MoveSpeed = 20;
+
         }
     }
 
