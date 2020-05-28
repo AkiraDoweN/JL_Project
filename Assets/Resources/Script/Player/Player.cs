@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     public Slider hpSlider;
 
+
     Vector3 look;
 
     void Start()
@@ -70,14 +71,22 @@ public class Player : MonoBehaviour
 
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "MonsterWeapon")
+       
+        if (other.tag == "Monster")
         {
+            animator.SetInteger("playerState", 3);
             NowHp -= 10;
-            
+            hpSlider.value = NowHp;
+            if (NowHp <= 0)
+            {
+                Dead();
+            }
         }
     }
+
 
 
     public void TakeDamage(int damage)

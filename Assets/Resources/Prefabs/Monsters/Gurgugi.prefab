@@ -978,7 +978,7 @@ GameObject:
   - component: {fileID: 6061801108403111295}
   m_Layer: 10
   m_Name: Gurgugi
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1052,7 +1052,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c7fc14839ef7284ab60c03abbacb6ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Property: 1
+  StartHp: 100
+  NowHp: 0
   skin:
   - {fileID: 2100000, guid: 9bf82c95cf1c92b408979354b27b0e46, type: 2}
   - {fileID: 2100000, guid: 9de9f98168f853246beecb3559bf19e9, type: 2}
