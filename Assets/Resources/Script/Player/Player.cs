@@ -70,6 +70,15 @@ public class Player : MonoBehaviour
 
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "MonsterWeapon")
+        {
+            NowHp -= 10;
+            
+        }
+    }
+
 
     public void TakeDamage(int damage)
     {
@@ -83,6 +92,6 @@ public class Player : MonoBehaviour
     }
     public void Dead()
     {
-        //animator.SetInteger("playerState", 4); //죽는 애니메이션
+        //animator.SetInteger("playerState", 5); //죽는 애니메이션
     }
 }

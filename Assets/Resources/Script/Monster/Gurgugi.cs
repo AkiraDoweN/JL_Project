@@ -5,13 +5,19 @@ using UnityEngine.AI;
 
 public class Gurgugi : Monster
 {
-    public bool Property = true;
+    [SerializeField]
+    private int StartHp = 100;
+    [SerializeField]
+    private int NowHp = 0;
     [SerializeField]
     private Material[] skin;
     NavMeshAgent nav;
     public Renderer renderer;
 
     public GameObject attack;
+
+    private Attack playerAttack;
+
 
     Animator anim;
     TYPE type;
@@ -25,6 +31,8 @@ public class Gurgugi : Monster
         //SetType();
         nav = GetComponent<NavMeshAgent>();
         Target = GameObject.FindGameObjectWithTag("Player").transform;
+        NowHp = StartHp;
+        playerAttack = GetComponent<Attack>();
     }
 
     void SetType()
@@ -48,7 +56,9 @@ public class Gurgugi : Monster
     {
         if (other.tag == "PlayerWeapon")
         {
-            Dead();
+            NowHp -= 20;
+            if(NowHp <= 0)
+                Dead();
         }
     }
 
