@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public int MoveSpeed = 20;
     public int startHp = 100;
     public int NowHp = 0;
+    public int takeDamage = 10;
 
     float WaitingTime = 2.0f;
     float timer = 0.0f;
@@ -17,7 +18,12 @@ public class Player : MonoBehaviour
     float VerticalMove;
 
     private Animator animator;
+    public GameObject gameOverWindow;
+
     public Slider hpSlider;
+
+    private bool attackCheck_2 = false;
+    private float checkAttackTime = 1f;
 
 
     Vector3 look;
@@ -53,6 +59,8 @@ public class Player : MonoBehaviour
             {
                 animator.SetInteger("playerState", 2);
                 MoveSpeed = 0;
+                
+
             }
             else
             {
@@ -78,7 +86,7 @@ public class Player : MonoBehaviour
         if (other.tag == "Monster")
         {
             animator.SetInteger("playerState", 3);
-            NowHp -= 10;
+            NowHp -= takeDamage;
             hpSlider.value = NowHp;
             if (NowHp <= 0)
             {
@@ -88,19 +96,26 @@ public class Player : MonoBehaviour
     }
 
 
-
-    public void TakeDamage(int damage)
-    {
-        animator.SetInteger("playerState", 3);
-        NowHp -= damage;
-        hpSlider.value = NowHp;
-        if(NowHp <= 0)
-        {
-            Dead();
-        }
-    }
     public void Dead()
     {
-        //animator.SetInteger("playerState", 5); //죽는 애니메이션
+        animator.SetInteger("playerState", 5); //죽는 애니메이션
+        gameOverWindow.SetActive(true);
+        Time.timeScale = 0;
     }
 }
+
+
+//if (Input.GetKeyUp(KeyCode.R))
+//                {
+//                    attackCheck_2 = true;
+//                    if(attackCheck_2 == true)
+//                    {
+//                        checkAttackTime -= Time.deltaTime;
+//                        animator.SetBool("Attack2", true);
+//                        if(checkAttackTime <= 0)
+//                        {
+//                            attackCheck_2 = false;
+//                            checkAttackTime = 0.5f;
+//                        }
+//                    }
+//                }

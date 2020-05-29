@@ -11,13 +11,11 @@ public class Gurgugi : Monster
     private int NowHp = 0;
     [SerializeField]
     private Material[] skin;
+    [SerializeField]
+    private int takeDamage = 20;
     NavMeshAgent nav;
     public Renderer renderer;
-
     public GameObject attack;
-
-    private Attack playerAttack;
-
 
     Animator anim;
     TYPE type;
@@ -32,7 +30,6 @@ public class Gurgugi : Monster
         nav = GetComponent<NavMeshAgent>();
         Target = GameObject.FindGameObjectWithTag("Player").transform;
         NowHp = StartHp;
-        playerAttack = GetComponent<Attack>();
     }
 
     void SetType()
@@ -56,7 +53,7 @@ public class Gurgugi : Monster
     {
         if (other.tag == "PlayerWeapon")
         {
-            NowHp -= 20;
+            NowHp -= takeDamage;
             if(NowHp <= 0)
                 Dead();
         }

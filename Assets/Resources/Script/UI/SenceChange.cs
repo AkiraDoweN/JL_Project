@@ -11,6 +11,6 @@ public class SenceChange : MonoBehaviour
     }
     public void ChangeGameScene()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("SubSence");
     }
 }
