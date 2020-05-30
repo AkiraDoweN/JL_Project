@@ -59,8 +59,20 @@ public class Player : MonoBehaviour
             {
                 animator.SetInteger("playerState", 2);
                 MoveSpeed = 0;
-                
-
+                if (Input.GetKeyUp(KeyCode.R))
+                {
+                    attackCheck_2 = true;
+                    if (attackCheck_2 == true)
+                    {
+                        checkAttackTime -= Time.deltaTime;
+                        animator.SetBool("Attack2", true);
+                        if (checkAttackTime <= 0)
+                        {
+                            attackCheck_2 = false;
+                            checkAttackTime = 0.5f;
+                        }
+                    }
+                }
             }
             else
             {
@@ -105,17 +117,3 @@ public class Player : MonoBehaviour
 }
 
 
-//if (Input.GetKeyUp(KeyCode.R))
-//                {
-//                    attackCheck_2 = true;
-//                    if(attackCheck_2 == true)
-//                    {
-//                        checkAttackTime -= Time.deltaTime;
-//                        animator.SetBool("Attack2", true);
-//                        if(checkAttackTime <= 0)
-//                        {
-//                            attackCheck_2 = false;
-//                            checkAttackTime = 0.5f;
-//                        }
-//                    }
-//                }
