@@ -1677,10 +1677,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 2.38
+  m_Radius: 1.61
   m_Height: 9.25
   m_Direction: 1
-  m_Center: {x: 0, y: 4.63, z: 0.15}
+  m_Center: {x: 0.3, y: 4.63, z: 0.52}
 --- !u!114 &7739882207861076962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1696,6 +1696,8 @@ MonoBehaviour:
   MoveSpeed: 20
   startHp: 100
   NowHp: 0
+  takeDamage: 10
+  gameOverWindow: {fileID: 0}
   hpSlider: {fileID: 0}
 --- !u!95 &7739882207861076961
 Animator:

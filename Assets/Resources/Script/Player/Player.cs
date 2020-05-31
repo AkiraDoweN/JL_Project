@@ -22,8 +22,11 @@ public class Player : MonoBehaviour
 
     public Slider hpSlider;
 
+
     private bool attackCheck_2 = false;
     private float checkAttackTime = 1f;
+
+    //public ParticleSystem weaponParticle;
 
 
     Vector3 look;
@@ -31,6 +34,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        //weaponParticle = GetComponent<ParticleSystem>();
         NowHp = startHp;
     }
 
@@ -58,6 +62,7 @@ public class Player : MonoBehaviour
             else if (Input.GetKey(KeyCode.R))
             {
                 animator.SetInteger("playerState", 2);
+                //weaponParticle.Play();
                 MoveSpeed = 0;
                 if (Input.GetKeyUp(KeyCode.R))
                 {
@@ -77,36 +82,40 @@ public class Player : MonoBehaviour
             else
             {
                 MoveSpeed = 20;
+               // weaponParticle.Stop();
             }
         }
         else if (Input.GetKey(KeyCode.R))
            {
             animator.SetInteger("playerState", 2);
+            //weaponParticle.Play();
             MoveSpeed = 0;
         }
         else
         {
             animator.SetInteger("playerState", 0);
             MoveSpeed = 20;
+            //weaponParticle.Stop();
+
 
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-       
+
         if (other.tag == "Monster")
         {
-            animator.SetInteger("playerState", 3);
-            NowHp -= takeDamage;
-            hpSlider.value = NowHp;
+                animator.SetInteger("playerState", 3);
+                NowHp -= takeDamage;
+                hpSlider.value = NowHp;
             if (NowHp <= 0)
             {
                 Dead();
             }
         }
     }
-
+    
 
     public void Dead()
     {

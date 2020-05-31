@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Gurgugi : Monster
 {
@@ -20,13 +21,16 @@ public class Gurgugi : Monster
     Animator anim;
     TYPE type;
 
+    GameObject skillGauge;
+
     private Transform Target;
     float[] StateTimechk = new float[3];
     void Start()
     {
+        this.skillGauge = GameObject.Find("windSkill");
         anim = GetComponent<Animator>();
         anim.SetInteger("state", 3);
-        //SetType();
+        SetType();
         nav = GetComponent<NavMeshAgent>();
         Target = GameObject.FindGameObjectWithTag("Player").transform;
         NowHp = StartHp;
@@ -55,7 +59,7 @@ public class Gurgugi : Monster
         {
             NowHp -= takeDamage;
             if(NowHp <= 0)
-                Dead();
+                Dead(skillGauge);
         }
     }
 
@@ -76,7 +80,7 @@ public class Gurgugi : Monster
                 Hit();
                 break;
             case 2:
-                Dead();
+                Dead(skillGauge);
                 break;
             case 3:
                 Move();
@@ -127,7 +131,7 @@ public class Gurgugi : Monster
         }
     }
 
-    public void Dead()
+    public void Dead(GameObject skillGuage)
     {
         anim.SetInteger("state", 2);
         if (StateTimechk[2] == 0)
@@ -137,6 +141,7 @@ public class Gurgugi : Monster
         else if (Time.time - StateTimechk[2] >= 4f)
         {
             Destroy(gameObject);
+            this.skillGauge.GetComponent<Image>().fillAmount += 0.125f;
         }
     }
 }
