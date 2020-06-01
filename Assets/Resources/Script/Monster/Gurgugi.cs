@@ -88,8 +88,6 @@ public class Gurgugi : Monster
         }
     }
 
-
-
     void Move()
     {
         if ((Target.position - transform.position).magnitude < 7)

@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    int hp = 100;
+    public float hp = 100;
 
-    private void OnTriggerEnter(Collider other)
-    {
-
-    }
-
+    // Start is called before the first frame update
     void Start()
     {
         
@@ -20,10 +16,5 @@ public class Monster : MonoBehaviour
     void Update()
     {
         
-    }
-
-    void TakeDamage()
-    {
-
     }
 }

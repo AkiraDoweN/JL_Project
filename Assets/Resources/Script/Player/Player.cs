@@ -28,7 +28,6 @@ public class Player : MonoBehaviour
 
     //public ParticleSystem weaponParticle;
 
-
     Vector3 look;
 
     void Start()
@@ -40,70 +39,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
-        {
-            timer += Time.deltaTime;
-            VerticalMove = Input.GetAxisRaw("Vertical");
-            HorizontalMove = Input.GetAxisRaw("Horizontal");
-            look = VerticalMove * Vector3.forward + HorizontalMove * Vector3.right;
-            this.transform.rotation = Quaternion.LookRotation(look);
-            this.transform.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
-            animator.SetInteger("playerState", 1);
-
-            if (Input.GetKey(KeyCode.Space)) // dash
-            {
-                if (timer > WaitingTime)
-                {
-                    animator.SetInteger("playerState", 4);
-                    timer = 0.0f;
-                    MoveSpeed = 40;
-                }
-            }
-            else if (Input.GetKey(KeyCode.R))
-            {
-                animator.SetInteger("playerState", 2);
-                //weaponParticle.Play();
-                MoveSpeed = 0;
-                if (Input.GetKeyUp(KeyCode.R))
-                {
-                    attackCheck_2 = true;
-                    if (attackCheck_2 == true)
-                    {
-                        checkAttackTime -= Time.deltaTime;
-                        animator.SetBool("Attack2", true);
-                        if (checkAttackTime <= 0)
-                        {
-                            attackCheck_2 = false;
-                            checkAttackTime = 0.5f;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                MoveSpeed = 20;
-               // weaponParticle.Stop();
-            }
-        }
-        else if (Input.GetKey(KeyCode.R))
-           {
-            animator.SetInteger("playerState", 2);
-            //weaponParticle.Play();
-            MoveSpeed = 0;
-        }
-        else
-        {
-            animator.SetInteger("playerState", 0);
-            MoveSpeed = 20;
-            //weaponParticle.Stop();
-
-
-        }
+        Move();
+        Dash();
+        Attack();
     }
-
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.tag == "Monster")
         {
                 animator.SetInteger("playerState", 3);
@@ -115,13 +56,78 @@ public class Player : MonoBehaviour
             }
         }
     }
-    
+    public void Move()
+    {
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        {
+            timer += Time.deltaTime;
+            VerticalMove = Input.GetAxisRaw("Vertical");
+            HorizontalMove = Input.GetAxisRaw("Horizontal");
+            look = VerticalMove * Vector3.forward + HorizontalMove * Vector3.right;
+            this.transform.rotation = Quaternion.LookRotation(look);
+            this.transform.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
+            animator.SetInteger("playerState", 1);
+
+            if (Input.GetKey(KeyCode.R))
+            {
+                animator.SetInteger("playerState", 2);
+                MoveSpeed = 0;
+            }
+            else
+            {
+                MoveSpeed = 20;
+                animator.SetInteger("playerState", 1);
+            }
+        }
+    }
+
+    public void Attack()
+    {
+        if (Input.GetKey(KeyCode.R))
+        {
+            animator.SetInteger("playerState", 2);
+            //weaponParticle.Play();
+            MoveSpeed = 0;
+            if (Input.GetKeyUp(KeyCode.R))
+            {
+                attackCheck_2 = true;
+                if (attackCheck_2 == true)
+                {
+                    checkAttackTime -= Time.deltaTime;
+                    animator.SetBool("Attack2", true);
+                    if (checkAttackTime <= 0)
+                    {
+                        attackCheck_2 = false;
+                        checkAttackTime = 0.5f;
+                    }
+                }
+            }
+        }
+        else
+        {
+            animator.SetInteger("playerState", 0);
+            MoveSpeed = 20;
+        }
+    }
+
+    public void Dash()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (timer > WaitingTime)
+            {
+                animator.SetInteger("playerState", 4);
+                timer = 0.0f;
+                MoveSpeed = 40;
+            }
+        }
+    }
 
     public void Dead()
     {
         animator.SetInteger("playerState", 5); //죽는 애니메이션
         gameOverWindow.SetActive(true);
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
     }
 }
 
