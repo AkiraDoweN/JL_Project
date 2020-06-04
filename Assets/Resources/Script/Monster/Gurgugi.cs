@@ -22,12 +22,15 @@ public class Gurgugi : Monster
     TYPE type;
 
     GameObject skillGauge;
+    Image image;
 
     private Transform Target;
     float[] StateTimechk = new float[3];
     void Start()
     {
-        this.skillGauge = GameObject.Find("windSkill");
+        this.skillGauge = GameObject.Find("rainSkill");
+        image = skillGauge.GetComponent<Image>();
+
         anim = GetComponent<Animator>();
         anim.SetInteger("state", 3);
         SetType();
@@ -58,8 +61,10 @@ public class Gurgugi : Monster
         if (other.tag == "PlayerWeapon")
         {
             NowHp -= takeDamage;
-            if(NowHp <= 0)
-                Dead(skillGauge);
+            anim.SetInteger("state", 1);
+
+            if (NowHp <= 0)
+                Dead();
         }
     }
 
@@ -80,7 +85,7 @@ public class Gurgugi : Monster
                 Hit();
                 break;
             case 2:
-                Dead(skillGauge);
+                Dead();
                 break;
             case 3:
                 Move();
@@ -110,7 +115,7 @@ public class Gurgugi : Monster
         }
         else if(Time.time - StateTimechk[0] >= 0.7115385f)
         {
-            nav.speed = 3.5f;
+            nav.speed = 30f;
             anim.SetInteger("state", 3);
             attack.SetActive(false);
         }
@@ -129,17 +134,31 @@ public class Gurgugi : Monster
         }
     }
 
-    public void Dead(GameObject skillGuage)
+    public void Dead()
     {
         anim.SetInteger("state", 2);
         if (StateTimechk[2] == 0)
         {
             StateTimechk[2] = Time.time;
         }
-        else if (Time.time - StateTimechk[2] >= 4f)
+        else if (Time.time - StateTimechk[2] >= 3f)
         {
             Destroy(gameObject);
-            this.skillGauge.GetComponent<Image>().fillAmount += 0.125f;
+            skillOnOff();
         }
     }
+    public void skillOnOff()
+    {
+        this.skillGauge.GetComponent<Image>().fillAmount += 0.25f;
+        if (skillGauge.GetComponent<Image>().fillAmount == 1.0f)
+        {
+            image.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_rain") as Sprite;
+            if (Input.GetKeyUp(KeyCode.Q))
+            {
+                image.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_B") as Sprite;
+                skillGauge.GetComponent<Image>().fillAmount -= 1.0f;
+            }
+        }
+    }
+
 }

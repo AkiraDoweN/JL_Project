@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 
-    public int MoveSpeed = 20;
-    public int startHp = 100;
+    public int MoveSpeed = 40;
+    public int startHp = 800;
     public int NowHp = 0;
     public int takeDamage = 10;
 
@@ -21,10 +21,11 @@ public class Player : MonoBehaviour
     public GameObject gameOverWindow;
 
     public Slider hpSlider;
+    // public GameObject Swordeffect;
 
 
-    private bool attackCheck_2 = false;
-    private float checkAttackTime = 1f;
+    float AttackTime = 0;
+    int AttackCheck = -1;
 
     //public ParticleSystem weaponParticle;
 
@@ -45,7 +46,7 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Monster")
+        if (other.tag == "MonsterWeapon")
         {
                 animator.SetInteger("playerState", 3);
                 NowHp -= takeDamage;
@@ -58,67 +59,117 @@ public class Player : MonoBehaviour
     }
     public void Move()
     {
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
-        {
-            timer += Time.deltaTime;
-            VerticalMove = Input.GetAxisRaw("Vertical");
-            HorizontalMove = Input.GetAxisRaw("Horizontal");
-            look = VerticalMove * Vector3.forward + HorizontalMove * Vector3.right;
-            this.transform.rotation = Quaternion.LookRotation(look);
-            this.transform.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
-            animator.SetInteger("playerState", 1);
+         VerticalMove = Input.GetAxisRaw("Vertical");
+         HorizontalMove = Input.GetAxisRaw("Horizontal");
+         if (VerticalMove + HorizontalMove != 0)
+         {
+            look = new Vector3(HorizontalMove, 0, VerticalMove);
 
+            transform.rotation = Quaternion.LookRotation(look);
+            transform.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
+            if(AttackCheck == -1)
+                animator.SetInteger("playerState", 1);
+            
             if (Input.GetKey(KeyCode.R))
             {
-                animator.SetInteger("playerState", 2);
                 MoveSpeed = 0;
             }
             else
             {
-                MoveSpeed = 20;
-                animator.SetInteger("playerState", 1);
+                MoveSpeed = 40;
             }
+        }
+        else
+        {
+            if (AttackCheck == -1)
+                animator.SetInteger("playerState", 0);
         }
     }
 
     public void Attack()
     {
-        if (Input.GetKey(KeyCode.R))
+
+        if (Input.GetKeyDown(KeyCode.R) && AttackCheck == -1)
         {
+            AttackCheck = 0;
+            AttackTime = Time.time;
             animator.SetInteger("playerState", 2);
-            //weaponParticle.Play();
-            MoveSpeed = 0;
-            if (Input.GetKeyUp(KeyCode.R))
-            {
-                attackCheck_2 = true;
-                if (attackCheck_2 == true)
-                {
-                    checkAttackTime -= Time.deltaTime;
-                    animator.SetBool("Attack2", true);
-                    if (checkAttackTime <= 0)
-                    {
-                        attackCheck_2 = false;
-                        checkAttackTime = 0.5f;
-                    }
-                }
-            }
+            //Swordeffect.SetActive(true);
         }
-        else
+        //else
+        //{
+        //    Swordeffect.SetActive(false);
+        //}
+        switch (AttackCheck)
         {
+            case 0:
+                FirstAttack();
+                break;
+            case 1:
+                SecondAttack();
+                break;
+            case 2:
+                ThirdAttack();
+                break;
+        }
+        
+
+    }
+
+    private void  FirstAttack()
+    {
+        if (Time.time - AttackTime > 0.08 && Input.GetKeyDown(KeyCode.R))
+        {
+            AttackCheck = 1;
+            AttackTime = Time.time;
+            animator.SetInteger("playerState", 6);
+            //Swordeffect.SetActive(true);
+        }
+        if (Time.time - AttackTime > 0.51)
+        {
+            AttackCheck = -1;
             animator.SetInteger("playerState", 0);
-            MoveSpeed = 20;
+        }
+    }
+
+    private void SecondAttack()
+    {
+        if (Time.time - AttackTime > 0.08 && Input.GetKeyDown(KeyCode.R))
+        {
+            AttackCheck = 2;
+            AttackTime = Time.time;
+            animator.SetInteger("playerState", 7);
+            //Swordeffect.SetActive(true);
+        }
+        if (Time.time - AttackTime > 0.531)
+        {
+            AttackCheck = -1;
+            animator.SetInteger("playerState", 0);
+
+        }
+    }
+
+    private void ThirdAttack()
+    {
+        if (Time.time - AttackTime > 0.625)
+        {
+            AttackCheck = -1;
+            animator.SetInteger("playerState", 0);
+
         }
     }
 
     public void Dash()
     {
+        timer += Time.deltaTime;
+
         if (Input.GetKey(KeyCode.Space))
         {
             if (timer > WaitingTime)
             {
                 animator.SetInteger("playerState", 4);
                 timer = 0.0f;
-                MoveSpeed = 40;
+                MoveSpeed = 300;
             }
         }
     }

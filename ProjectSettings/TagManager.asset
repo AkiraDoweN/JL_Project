@@ -7,6 +7,7 @@ TagManager:
   - PlayerWeapon
   - MonsterWeapon
   - Monster
+  - Skill_1
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Player
   - Weapon
   - MonsterWeapon
-  - 
+  - Wall
   - 
   - 
   - 

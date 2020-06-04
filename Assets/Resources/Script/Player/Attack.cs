@@ -22,6 +22,13 @@ public class Attack : MonoBehaviour
     private Light playerLight2;
     public GameObject coll;
     float attackTimer = 0;
+    float EffectTimer = 0;
+
+    public GameObject effectLight_b;
+    public GameObject effectLight_y;
+    public GameObject effectLight_g;
+
+    public GameObject Swordeffect;
 
 
     void Start()
@@ -34,6 +41,7 @@ public class Attack : MonoBehaviour
     {
         MonsterCheck();
         WeaponChange();
+        WeaponEffect();
     }
 
     void WeaponChange()
@@ -53,6 +61,7 @@ public class Attack : MonoBehaviour
         else
         {
             Damage = 20;
+
         }
         SetWeapon();
     }
@@ -62,20 +71,28 @@ public class Attack : MonoBehaviour
         switch(type)
         {
             case TYPE.RAIN:
-                playerLight.color = new Color(0.11f, 0.80f, 1f, 1);
-                playerLight2.color = new Color(0.11f, 0.80f, 1f, 1);
+                playerLight.color = new Color(0.0f, 0.28f, 1f, 1);
+                //playerLight2.color = new Color(0.0f, 0.28f, 1f, 1);
+                effectLight_b.SetActive(true);
+                effectLight_g.SetActive(false);
+                effectLight_y.SetActive(false);
                 break;
             case TYPE.CLOUD:
                 playerLight.color = new Color(1f, 0.92f, 0.08f, 1);
-                playerLight2.color = new Color(1f, 0.92f, 0.08f, 1);
+                //playerLight2.color = new Color(1f, 0.92f, 0.08f, 1);
+                effectLight_b.SetActive(false);
+                effectLight_g.SetActive(false);
+                effectLight_y.SetActive(true);
                 break;
             case TYPE.WIND:
                 playerLight.color = new Color(0.20f, 0.92f, 0.09f, 1);
-                playerLight2.color = new Color(0.20f, 0.92f, 0.09f, 1);
+                //playerLight2.color = new Color(0.20f, 0.92f, 0.09f, 1);
+                effectLight_b.SetActive(false);
+                effectLight_g.SetActive(true);
+                effectLight_y.SetActive(false);
                 break;
         }
     }
-
     void MonsterCheck()
     {
         if (attackTimer == 0)
@@ -83,11 +100,11 @@ public class Attack : MonoBehaviour
             if (Input.GetKey(KeyCode.R))
             {
                 attackTimer = Time.time;
-                              
             }
         }
         else
         {
+            
             if (Time.time - attackTimer > 0.2f)
             {
                 coll.SetActive(true);
@@ -100,6 +117,32 @@ public class Attack : MonoBehaviour
         }
         
     }
+
+    void WeaponEffect()
+    {
+        if (EffectTimer == 0)
+        {
+            if (Input.GetKey(KeyCode.R))
+            {
+                EffectTimer = Time.time;
+
+            }
+        }
+        else
+        {
+            if (Time.time - EffectTimer > 0.05f)
+            {
+                Swordeffect.SetActive(true);
+            }
+            if (Time.time - EffectTimer > 0.77f)
+            {
+                Swordeffect.SetActive(false);
+                EffectTimer = 0;
+            }
+        }
+
+    }
+
 }
 //Collider[] collisions = Physics.OverlapCapsule(weapon.position, weapon.position, 0.3f);
 //foreach (Collider collider in collisions)

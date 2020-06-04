@@ -23,7 +23,7 @@ public class MonsterSpawner : MonoBehaviour
 
     void Spawn()
     {
-        if(Time.time - SpawnTime > 4)
+        if(Time.time - SpawnTime > 6f)
         {
             int randomMonster, randomSpawner;
             randomMonster = Random.Range(0, MonsterList.Count);
