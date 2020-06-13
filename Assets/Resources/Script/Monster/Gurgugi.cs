@@ -141,7 +141,7 @@ public class Gurgugi : Monster
         {
             StateTimechk[2] = Time.time;
         }
-        else if (Time.time - StateTimechk[2] >= 3f)
+        else if (Time.time - StateTimechk[2] >= 0.5f)
         {
             Destroy(gameObject);
             skillOnOff();
