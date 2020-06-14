@@ -21,15 +21,19 @@ public class Gurgugi : Monster
     Animator anim;
     TYPE type;
 
-    GameObject skillGauge;
+    GameObject skillGauge_rain;
+    GameObject skillGauge_cloud;
+    GameObject skillGauge_wind;
     Image image;
 
     private Transform Target;
     float[] StateTimechk = new float[3];
     void Start()
     {
-        this.skillGauge = GameObject.Find("rainSkill");
-        image = skillGauge.GetComponent<Image>();
+        this.skillGauge_rain = GameObject.Find("rainSkill");
+        this.skillGauge_cloud = GameObject.Find("cloudSkill");
+        this.skillGauge_wind = GameObject.Find("windSkill");
+        image = skillGauge_rain.GetComponent<Image>();
 
         anim = GetComponent<Animator>();
         anim.SetInteger("state", 3);
@@ -144,21 +148,46 @@ public class Gurgugi : Monster
         else if (Time.time - StateTimechk[2] >= 0.5f)
         {
             Destroy(gameObject);
-            skillOnOff();
+            skillGauge_Rain();
         }
     }
-    public void skillOnOff()
+    public void skillGauge_Rain()
     {
-        this.skillGauge.GetComponent<Image>().fillAmount += 0.25f;
-        if (skillGauge.GetComponent<Image>().fillAmount == 1.0f)
+        this.skillGauge_rain.GetComponent<Image>().fillAmount += 0.125f;
+        if (skillGauge_rain.GetComponent<Image>().fillAmount == 1.0f)
         {
             image.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_rain") as Sprite;
-            if (Input.GetKeyUp(KeyCode.Q))
-            {
-                image.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_B") as Sprite;
-                skillGauge.GetComponent<Image>().fillAmount -= 1.0f;
-            }
+        }
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            image.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_B") as Sprite;
+            skillGauge_rain.GetComponent<Image>().fillAmount -= 1.0f;
         }
     }
-
+    public void skillGauge_Cloud()
+    {
+        this.skillGauge_rain.GetComponent<Image>().fillAmount += 0.125f;
+        if (skillGauge_rain.GetComponent<Image>().fillAmount == 1.0f)
+        {
+            image.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_cloud") as Sprite;
+        }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            image.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Y") as Sprite;
+            skillGauge_rain.GetComponent<Image>().fillAmount -= 1.0f;
+        }
+    }
+    public void skillGauge_Wind()
+    {
+        this.skillGauge_rain.GetComponent<Image>().fillAmount += 0.125f;
+        if (skillGauge_rain.GetComponent<Image>().fillAmount == 1.0f)
+        {
+            image.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_wind") as Sprite;
+        }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            image.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_G") as Sprite;
+            skillGauge_rain.GetComponent<Image>().fillAmount -= 1.0f;
+        }
+    }
 }
