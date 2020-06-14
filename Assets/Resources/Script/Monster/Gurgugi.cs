@@ -14,12 +14,15 @@ public class Gurgugi : Monster
     private Material[] skin;
     [SerializeField]
     private int takeDamage = 20;
+    [SerializeField]
+    private float Knock_back_power = 10;
     NavMeshAgent nav;
     public Renderer renderer;
     public GameObject attack;
 
     Animator anim;
     TYPE type;
+    float invincibility_time;
 
     GameObject skillGauge_rain;
     GameObject skillGauge_cloud;
@@ -62,13 +65,14 @@ public class Gurgugi : Monster
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "PlayerWeapon")
+        if (other.tag == "PlayerWeapon" && Time.time - invincibility_time > 0.08f)
         {
             NowHp -= takeDamage;
             anim.SetInteger("state", 1);
-
+            invincibility_time = Time.time;
             if (NowHp <= 0)
                 Dead();
+            Knock_back(other.gameObject.transform.position);
         }
     }
 
@@ -76,6 +80,13 @@ public class Gurgugi : Monster
     {
         SetState();
     }
+
+    void Knock_back(Vector3 obj)
+    {
+        Vector3 temp = (transform.position - obj).normalized;
+        transform.position += temp * Knock_back_power;
+    }
+
 
     void SetState()
     {
