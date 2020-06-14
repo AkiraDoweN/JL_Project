@@ -21,21 +21,21 @@ public class Player : MonoBehaviour
     public GameObject gameOverWindow;
 
     public Slider hpSlider;
-    // public GameObject Swordeffect;
-
 
     float AttackTime = 0;
     int AttackCheck = -1;
 
-    //public ParticleSystem weaponParticle;
-
     Vector3 look;
+    private AudioSource audio;
+    public AudioClip AttackSound;
+
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        //weaponParticle = GetComponent<ParticleSystem>();
         NowHp = startHp;
+        animator = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
+        audio.clip = AttackSound;
     }
 
     void Update()
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
     {
          VerticalMove = Input.GetAxisRaw("Vertical");
          HorizontalMove = Input.GetAxisRaw("Horizontal");
-         if (VerticalMove + HorizontalMove != 0)
+         if (VerticalMove != 0 || HorizontalMove != 0)
          {
             look = new Vector3(HorizontalMove, 0, VerticalMove);
 
@@ -73,10 +73,12 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.R))
             {
                 MoveSpeed = 0;
+                audio.Play();
             }
             else
             {
                 MoveSpeed = 40;
+                audio.Stop();
             }
         }
         else
@@ -94,12 +96,8 @@ public class Player : MonoBehaviour
             AttackCheck = 0;
             AttackTime = Time.time;
             animator.SetInteger("playerState", 2);
-            //Swordeffect.SetActive(true);
         }
-        //else
-        //{
-        //    Swordeffect.SetActive(false);
-        //}
+        
         switch (AttackCheck)
         {
             case 0:
@@ -180,6 +178,8 @@ public class Player : MonoBehaviour
         gameOverWindow.SetActive(true);
         //Time.timeScale = 0;
     }
+
+   
 }
 
 
