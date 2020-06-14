@@ -57,6 +57,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 9de9f98168f853246beecb3559bf19e9, type: 2}
   - {fileID: 2100000, guid: c15c660cd3765ac49bd21aa8a98b96e5, type: 2}
   takeDamage: 20
+  Knock_back_power: 10
   renderer: {fileID: 2601056915077642630}
   attack: {fileID: 1969000875188279453}
 --- !u!95 &9140542917905575496
