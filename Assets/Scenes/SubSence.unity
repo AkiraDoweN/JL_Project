@@ -19942,6 +19942,18 @@ PrefabInstance:
       propertyPath: AttackSound
       value: 
       objectReference: {fileID: 8300000, guid: f59817da06520ca41ad2d83764c6f4eb, type: 3}
+    - target: {fileID: 7739882207861076962, guid: ded9b08e63bfb7846ad67517ec7bec6d,
+        type: 3}
+      propertyPath: Skill_S
+      value: 
+      objectReference: {fileID: 403161073897191244, guid: 9535988c1b77e6648b227b57f12cb7fd,
+        type: 3}
+    - target: {fileID: 7739882207861076962, guid: ded9b08e63bfb7846ad67517ec7bec6d,
+        type: 3}
+      propertyPath: Skill_D
+      value: 
+      objectReference: {fileID: 916787825333425916, guid: 5b237869efc883f4c98f064a2539f339,
+        type: 3}
     - target: {fileID: 7739882207961991165, guid: ded9b08e63bfb7846ad67517ec7bec6d,
         type: 3}
       propertyPath: m_Layer
