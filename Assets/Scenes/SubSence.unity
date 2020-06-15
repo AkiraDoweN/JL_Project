@@ -4022,6 +4022,18 @@ PrefabInstance:
       propertyPath: hpSlider
       value: 
       objectReference: {fileID: 1470666451}
+    - target: {fileID: 6990835125249087415, guid: ded9b08e63bfb7846ad67517ec7bec6d,
+        type: 3}
+      propertyPath: Skill_S
+      value: 
+      objectReference: {fileID: 403161073897191244, guid: 9535988c1b77e6648b227b57f12cb7fd,
+        type: 3}
+    - target: {fileID: 6990835125249087415, guid: ded9b08e63bfb7846ad67517ec7bec6d,
+        type: 3}
+      propertyPath: Skill_D
+      value: 
+      objectReference: {fileID: 916787825333425916, guid: 5b237869efc883f4c98f064a2539f339,
+        type: 3}
     - target: {fileID: 6990835125249087434, guid: ded9b08e63bfb7846ad67517ec7bec6d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4146,7 +4158,7 @@ PrefabInstance:
         type: 3}
       propertyPath: audioSource
       value: 
-      objectReference: {fileID: 20418967}
+      objectReference: {fileID: 0}
     - target: {fileID: 7739882207861076962, guid: ded9b08e63bfb7846ad67517ec7bec6d,
         type: 3}
       propertyPath: bgm
