@@ -4,31 +4,15 @@ using UnityEngine;
 
 public class AttackCoillder : MonoBehaviour
 {
-    private SphereCollider sphereCollider;
-    private float Damage = 1.0f;
-    private Transform coll;
-    void Start()
-    {
-        coll = GetComponent<Transform>();
-    }
+    private float Damage = 20.0f;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerStay(Collider other)
     {
-        Collider[] collisions = Physics.OverlapSphere(coll.position, 3f);
-        foreach (Collider collider in collisions)
+        Debug.Log(1);
+        if(other.tag == "Monster")
         {
-            if (collider.gameObject.tag == "Monster")
-            {
-                Kill_Monster(collider);
-                break;
-            }
+            other.gameObject.GetComponent<Gurgugi>().TakeDamage(Damage);
         }
     }
 
-    public void Kill_Monster(Collider collider)
-    {
-        collider.gameObject.GetComponent<Gurgugi>().TakeDamage(Damage);
-        
-    }
 }

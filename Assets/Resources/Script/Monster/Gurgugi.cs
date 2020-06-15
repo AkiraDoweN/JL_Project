@@ -22,7 +22,7 @@ public class Gurgugi : Monster
 
     Animator anim;
     TYPE type;
-    float invincibility_time;
+    float invincibility_time = 0;
 
     GameObject skillGauge_rain;
     GameObject skillGauge_cloud;
@@ -97,7 +97,7 @@ public class Gurgugi : Monster
         //        Dead();
         //    Knock_back(other.gameObject.transform.position);
         //}
-        if (other.tag == "Skill_1" && Time.time - invincibility_time > 0.08f)
+        if (other.tag == "Skill_1" && Time.time - invincibility_time > 0.32f)
         {
             NowHp -= takeDamage;
             anim.SetInteger("state", 1);
@@ -128,9 +128,9 @@ public class Gurgugi : Monster
 
     public void TakeDamage(float amount)
     {
-        NowHp -= amount;
-        if (Time.time - invincibility_time > 0.08f)
+        if (Time.time - invincibility_time > 0.32f)
         {
+            NowHp -= amount;
             anim.SetInteger("state", 1);
             invincibility_time = Time.time;
             Knock_back(gameObject.transform.position);
@@ -235,7 +235,6 @@ public class Gurgugi : Monster
     {
         if (skillGauge_rain.GetComponent<Image>().fillAmount >= 1)
         {
-            Debug.Log(1);
             image_rain.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_rain") as Sprite;
             if (Input.GetKeyUp(KeyCode.Q))
             {
