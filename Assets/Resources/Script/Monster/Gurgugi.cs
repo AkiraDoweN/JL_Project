@@ -144,6 +144,7 @@ public class Gurgugi : Monster
     void SetState()
     {
         nav.SetDestination(transform.position);
+        transform.LookAt(Player.GetInstance().gameObject.transform, Vector3.forward);
         switch (anim.GetInteger("state"))
         {
             case 0:
@@ -234,6 +235,7 @@ public class Gurgugi : Monster
     {
         if (skillGauge_rain.GetComponent<Image>().fillAmount >= 1)
         {
+            Debug.Log(1);
             image_rain.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_rain") as Sprite;
             if (Input.GetKeyUp(KeyCode.Q))
             {

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-
     public int MoveSpeed = 40;
     public int startHp = 800;
     public int NowHp = 0;
@@ -18,9 +17,13 @@ public class Player : MonoBehaviour
     float VerticalMove;
 
     private Animator animator;
+    static private Player _player;
     public GameObject gameOverWindow;
 
     public Slider hpSlider;
+
+    public GameObject Skill_S;
+    public GameObject Skill_D;
 
     float AttackTime = 0;
     int AttackCheck = -1;
@@ -28,6 +31,15 @@ public class Player : MonoBehaviour
     Vector3 look;
    
 
+    public static Player GetInstance()
+    {
+        return _player;
+    }
+
+    private void Awake()
+    {
+        _player = this;
+    }
 
     void Start()
     {
@@ -40,6 +52,7 @@ public class Player : MonoBehaviour
         Move();
         Dash();
         Attack();
+        Skill();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -54,6 +67,29 @@ public class Player : MonoBehaviour
             }
         }
     }
+    
+    void Skill()
+    {
+        Skill_s();
+        Skill_d();
+    }
+
+    void Skill_s()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Instantiate(Skill_S, transform.position + transform.forward * 15, transform.rotation);
+        }
+    }
+
+    void Skill_d()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Instantiate(Skill_D, transform.position, transform.rotation);
+        }
+    }
+
     public void Move()
     {
          VerticalMove = Input.GetAxisRaw("Vertical");
