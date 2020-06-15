@@ -36,11 +36,15 @@ public class Attack : MonoBehaviour
     Image image_cloud;
     Image image_wind;
 
-    private SphereCollider sphereCollider;
-    //private Gurgugi gurgugi;
-
     private AudioSource audio;
     public AudioClip AttackSound;
+
+    private Gurgugi gurgugi;
+
+    public bool Player_Rain;
+    public bool Player_Cloud;
+    public bool Player_Wind;
+
 
     void Start()
     {
@@ -54,12 +58,12 @@ public class Attack : MonoBehaviour
         weapon = GetComponent<Transform>();
         type = TYPE.RAIN;
 
-        sphereCollider = GetComponent<SphereCollider>();
-
-        //gurgugi = GameObject.Find("Gurguri_h").GetComponent<Gurgugi>();
-
         audio = GetComponent<AudioSource>();
         audio.clip = AttackSound;
+
+        //Gurgugi gurgugi = GameObject.Find("Gurgugi_h").GetComponent<Gurgugi>();
+        //FeverGauge feverGauge = GameObject.Find("FeverGauge 컴포넌트가 부착된 오브젝트").GetComponent<FeverGauge>();
+        //feverGauge.gaugeCount = 5; // 접근해서 값을 수정 했습니다.
     }
 
     void Update()
@@ -67,8 +71,10 @@ public class Attack : MonoBehaviour
         MonsterCheck();
         WeaponChange();
         WeaponEffect();
-        //Kill_Monster();
+        PropertyCheck();
     }
+
+    
 
     void WeaponChange()
     {
@@ -101,32 +107,34 @@ public class Attack : MonoBehaviour
                 effectLight_b.SetActive(true);
                 effectLight_g.SetActive(false);
                 effectLight_y.SetActive(false);
+                Player_Rain = true;
+                Player_Cloud = false;
+                Player_Wind = false;
                 break;
             case TYPE.CLOUD:
                 playerLight.color = new Color(1f, 0.92f, 0.08f, 1);
                 effectLight_b.SetActive(false);
                 effectLight_g.SetActive(false);
                 effectLight_y.SetActive(true);
+                Player_Rain = false;
+                Player_Cloud = true;
+                Player_Wind = false;
                 break;
             case TYPE.WIND:
                 playerLight.color = new Color(0.20f, 0.92f, 0.09f, 1);
                 effectLight_b.SetActive(false);
                 effectLight_g.SetActive(true);
                 effectLight_y.SetActive(false);
+                Player_Rain = false;
+                Player_Cloud = false;
+                Player_Wind = true;
+
                 break;
         }
     }
     void MonsterCheck()
     {
-        //Collider[] collisions = Physics.OverlapSphere(transform.position, 0.3f);
-        //foreach (Collider collider in collisions)
-        //{
-        //    if (collider.gameObject.tag == "Monster")
-        //    {
-        //        Kill_Monster(coll);
-        //        break;
-        //    }
-        //}
+        
         if (attackTimer == 0)
         {
             if (Input.GetKey(KeyCode.R))
@@ -137,7 +145,6 @@ public class Attack : MonoBehaviour
         }
         else
         {
-            
             if (Time.time - attackTimer > 0.2f)
             {
                 coll.SetActive(true);
@@ -157,7 +164,6 @@ public class Attack : MonoBehaviour
             if (Input.GetKey(KeyCode.R))
             {
                 EffectTimer = Time.time;
-
             }
         }
         else
@@ -174,61 +180,60 @@ public class Attack : MonoBehaviour
         }
 
     }
-    public void Kill_Monster(GameObject collider)
-    {
-        collider.gameObject.GetComponent<Gurgugi>().TakeDamage(Damage);
+
+    public void PropertyCheck() {
+        //if(Player_Rain == true && gurgugi.Monster_Rain == true)
+        //{
+        //    skillGauge_Rain();
+        //}
+        //else if (Player_Cloud == true && gurgugi.Monster_Cloud == true)
+        //{
+        //    skillGauge_Cloud();
+        //}
+        //else if (Player_Wind == true && gurgugi.Monster_Wind == true)
+        //{
+        //    skillGauge_Wind();
+        //}
     }
-    //public void Overlap_Attack()
-    //{
-    //    Collider[] collisions = Physics.OverlapSphere(transform.position, 0.3f);
-    //    foreach (Collider collider in collisions)
-    //    {
-    //        if (collider.gameObject.tag == "Monster")
-    //        {
-    //            Kill_Monster();
-    //            break;
-    //        }
-    //    }
-    //}
 
     public void skillGauge_Rain()
     {
         this.skillGauge_rain.GetComponent<Image>().fillAmount += 0.125f;
-        if (skillGauge_rain.GetComponent<Image>().fillAmount >= 1.0f)
+        if (skillGauge_rain.GetComponent<Image>().fillAmount >= 1)
         {
             image_rain.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_rain") as Sprite;
             if (Input.GetKeyUp(KeyCode.Q))
             {
                 image_rain.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_B") as Sprite;
-                skillGauge_rain.GetComponent<Image>().fillAmount = 0.0f;
+                skillGauge_rain.GetComponent<Image>().fillAmount = 0;
             }
         }
-
     }
+
     public void skillGauge_Cloud()
     {
-        this.skillGauge_rain.GetComponent<Image>().fillAmount += 0.125f;
-        if (skillGauge_rain.GetComponent<Image>().fillAmount == 1.0f)
+        this.skillGauge_cloud.GetComponent<Image>().fillAmount += 0.125f;
+        if (skillGauge_cloud.GetComponent<Image>().fillAmount >= 1.0f)
         {
             image_cloud.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_cloud") as Sprite;
         }
         if (Input.GetKeyUp(KeyCode.W))
         {
             image_cloud.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Y") as Sprite;
-            skillGauge_rain.GetComponent<Image>().fillAmount -= 1.0f;
+            skillGauge_cloud.GetComponent<Image>().fillAmount = 0;
         }
     }
     public void skillGauge_Wind()
     {
-        this.skillGauge_rain.GetComponent<Image>().fillAmount += 0.125f;
-        if (skillGauge_rain.GetComponent<Image>().fillAmount == 1.0f)
+        this.skillGauge_wind.GetComponent<Image>().fillAmount += 0.125f;
+        if (skillGauge_wind.GetComponent<Image>().fillAmount >= 1.0f)
         {
             image_wind.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_wind") as Sprite;
         }
         if (Input.GetKeyUp(KeyCode.E))
         {
             image_wind.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_G") as Sprite;
-            skillGauge_rain.GetComponent<Image>().fillAmount -= 1.0f;
+            skillGauge_wind.GetComponent<Image>().fillAmount = 0;
         }
     }
 

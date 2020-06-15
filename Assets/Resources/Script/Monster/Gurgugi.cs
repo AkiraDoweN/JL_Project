@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class Gurgugi : Monster
 {
     [SerializeField]
-    private int StartHp = 100;
+    private float StartHp = 100;
     [SerializeField]
-    private int NowHp = 0;
+    public float NowHp = 0;
     [SerializeField]
     private Material[] skin;
     [SerializeField]
-    private int takeDamage = 20;
+    private int takeDamage = 200;
     [SerializeField]
     private float Knock_back_power = 10;
     NavMeshAgent nav;
@@ -33,12 +33,13 @@ public class Gurgugi : Monster
 
     private Transform Target;
     float[] StateTimechk = new float[3];
-    private bool Monster_Rain;
-    private bool Monster_Cloud;
-    private bool Monster_Wind;
+    public bool Monster_Rain;
+    public bool Monster_Cloud;
+    public bool Monster_Wind;
 
+    private GameObject bullet;
+    private GameObject bulletposition;
 
-    
     void Start()
     {
         this.skillGauge_rain = GameObject.Find("rainSkill");
@@ -54,6 +55,9 @@ public class Gurgugi : Monster
         anim.SetInteger("state", 3);
         NowHp = StartHp;
         SetType();
+
+        //bullet = Instantiate(Resources.Load("Prefabs/Skill_Rain_Bullet")) as GameObject;
+        //this.bulletposition = GameObject.Find("Skill_Rain");
     }
 
     void SetType()
@@ -84,7 +88,16 @@ public class Gurgugi : Monster
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "PlayerWeapon" && Time.time - invincibility_time > 0.08f)
+        //if (other.tag == "PlayerWeapon" && Time.time - invincibility_time > 0.08f)
+        //{
+        //    NowHp -= takeDamage;
+        //    anim.SetInteger("state", 1);
+        //    invincibility_time = Time.time;
+        //    if (NowHp <= 0)
+        //        Dead();
+        //    Knock_back(other.gameObject.transform.position);
+        //}
+        if (other.tag == "Skill_1" && Time.time - invincibility_time > 0.08f)
         {
             NowHp -= takeDamage;
             anim.SetInteger("state", 1);
@@ -93,11 +106,18 @@ public class Gurgugi : Monster
                 Dead();
             Knock_back(other.gameObject.transform.position);
         }
+
     }
 
     void FixedUpdate()
     {
         SetState();
+    }
+    private void Update()
+    {
+        skillGauge_Rain_skill();
+        skillGauge_Cloud_skill();
+        skillGauge_Wind_skill();
     }
 
     void Knock_back(Vector3 obj)
@@ -106,14 +126,19 @@ public class Gurgugi : Monster
         transform.position += temp * Knock_back_power;
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         NowHp -= amount;
-        if(NowHp <= 0)
+        if (Time.time - invincibility_time > 0.08f)
+        {
+            anim.SetInteger("state", 1);
+            invincibility_time = Time.time;
+            Knock_back(gameObject.transform.position);
+        }
+        if (NowHp <= 0)
         {
             Dead();
         }
-
     }
 
     void SetState()
@@ -188,7 +213,7 @@ public class Gurgugi : Monster
         {
             Destroy(gameObject);
         }
-        if(Monster_Rain == true)
+        if (Monster_Rain == true)
         {
             skillGauge_Rain();
         }
@@ -204,6 +229,9 @@ public class Gurgugi : Monster
     public void skillGauge_Rain()
     {
         this.skillGauge_rain.GetComponent<Image>().fillAmount += 0.125f;
+    }
+    public void skillGauge_Rain_skill()
+    {
         if (skillGauge_rain.GetComponent<Image>().fillAmount >= 1)
         {
             image_rain.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_rain") as Sprite;
@@ -211,13 +239,20 @@ public class Gurgugi : Monster
             {
                 image_rain.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_B") as Sprite;
                 skillGauge_rain.GetComponent<Image>().fillAmount = 0;
+                GameObject bulletObject = Instantiate(bullet);
+                bulletObject.transform.position = transform.position + transform.forward;
+                bulletObject.transform.forward = bulletposition.transform.forward;
             }
         }
-
     }
     public void skillGauge_Cloud()
     {
         this.skillGauge_cloud.GetComponent<Image>().fillAmount += 0.125f;
+       
+    }
+    public void skillGauge_Cloud_skill()
+    {
+        
         if (skillGauge_cloud.GetComponent<Image>().fillAmount >= 1.0f)
         {
             image_cloud.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_cloud") as Sprite;
@@ -231,6 +266,9 @@ public class Gurgugi : Monster
     public void skillGauge_Wind()
     {
         this.skillGauge_wind.GetComponent<Image>().fillAmount += 0.125f;
+    }
+    public void skillGauge_Wind_skill()
+    {
         if (skillGauge_wind.GetComponent<Image>().fillAmount >= 1.0f)
         {
             image_wind.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_wind") as Sprite;

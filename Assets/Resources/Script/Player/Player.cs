@@ -26,16 +26,13 @@ public class Player : MonoBehaviour
     int AttackCheck = -1;
 
     Vector3 look;
-    private AudioSource audio;
-    public AudioClip AttackSound;
+   
 
 
     void Start()
     {
         NowHp = startHp;
         animator = GetComponent<Animator>();
-        audio = GetComponent<AudioSource>();
-        audio.clip = AttackSound;
     }
 
     void Update()
@@ -69,16 +66,16 @@ public class Player : MonoBehaviour
             transform.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
             if(AttackCheck == -1)
                 animator.SetInteger("playerState", 1);
-            
+
             if (Input.GetKey(KeyCode.R))
             {
                 MoveSpeed = 0;
-                audio.Play();
+                GetComponent<AudioSource>().Play();
             }
             else
             {
                 MoveSpeed = 40;
-                audio.Stop();
+                GetComponent<AudioSource>().Stop();
             }
         }
         else
@@ -110,8 +107,6 @@ public class Player : MonoBehaviour
                 ThirdAttack();
                 break;
         }
-        
-
     }
 
     private void  FirstAttack()
@@ -121,7 +116,6 @@ public class Player : MonoBehaviour
             AttackCheck = 1;
             AttackTime = Time.time;
             animator.SetInteger("playerState", 6);
-            //Swordeffect.SetActive(true);
         }
         if (Time.time - AttackTime > 0.51)
         {
@@ -137,7 +131,6 @@ public class Player : MonoBehaviour
             AttackCheck = 2;
             AttackTime = Time.time;
             animator.SetInteger("playerState", 7);
-            //Swordeffect.SetActive(true);
         }
         if (Time.time - AttackTime > 0.531)
         {
@@ -153,7 +146,6 @@ public class Player : MonoBehaviour
         {
             AttackCheck = -1;
             animator.SetInteger("playerState", 0);
-
         }
     }
 
