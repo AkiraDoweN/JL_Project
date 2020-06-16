@@ -37,9 +37,6 @@ public class Gurgugi : Monster
     public bool Monster_Cloud;
     public bool Monster_Wind;
 
-    private GameObject bullet;
-    private GameObject bulletposition;
-
     void Start()
     {
         this.skillGauge_rain = GameObject.Find("rainSkill");
@@ -240,9 +237,6 @@ public class Gurgugi : Monster
             {
                 image_rain.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_B") as Sprite;
                 skillGauge_rain.GetComponent<Image>().fillAmount = 0;
-                GameObject bulletObject = Instantiate(bullet);
-                bulletObject.transform.position = transform.position + transform.forward;
-                bulletObject.transform.forward = bulletposition.transform.forward;
             }
         }
     }

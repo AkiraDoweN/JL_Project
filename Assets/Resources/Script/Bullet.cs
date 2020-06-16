@@ -6,13 +6,12 @@ public class Bullet : MonoBehaviour
 {
     public GameObject bullet;
     public GameObject bulletposition;
-    public float Damage = 200;
 
     void Start()
     {
 
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -29,16 +28,6 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Monster")
-        {
-            Kill_Monster(other);
-        }
-    }
-    public void Kill_Monster(Collider collider)
-    {
-        collider.gameObject.GetComponent<Gurgugi>().TakeDamage(Damage);
+    
 
-    }
 }

@@ -12,7 +12,7 @@ public class Attack : MonoBehaviour
 {
     private Transform weapon;
 
-    public int Damage = 20;
+    public int Damage = 50;
     [SerializeField]
     private TYPE type;
     //속성에 따른 빛
@@ -60,10 +60,6 @@ public class Attack : MonoBehaviour
 
         audio = GetComponent<AudioSource>();
         audio.clip = AttackSound;
-
-        //Gurgugi gurgugi = GameObject.Find("Gurgugi_h").GetComponent<Gurgugi>();
-        //FeverGauge feverGauge = GameObject.Find("FeverGauge 컴포넌트가 부착된 오브젝트").GetComponent<FeverGauge>();
-        //feverGauge.gaugeCount = 5; // 접근해서 값을 수정 했습니다.
     }
 
     void Update()
@@ -71,7 +67,6 @@ public class Attack : MonoBehaviour
         MonsterCheck();
         WeaponChange();
         WeaponEffect();
-        PropertyCheck();
     }
 
     
@@ -92,7 +87,7 @@ public class Attack : MonoBehaviour
         }
         else
         {
-            Damage = 20;
+            Damage = 50;
 
         }
         SetWeapon();
@@ -180,21 +175,7 @@ public class Attack : MonoBehaviour
         }
 
     }
-
-    public void PropertyCheck() {
-        //if(Player_Rain == true && gurgugi.Monster_Rain == true)
-        //{
-        //    skillGauge_Rain();
-        //}
-        //else if (Player_Cloud == true && gurgugi.Monster_Cloud == true)
-        //{
-        //    skillGauge_Cloud();
-        //}
-        //else if (Player_Wind == true && gurgugi.Monster_Wind == true)
-        //{
-        //    skillGauge_Wind();
-        //}
-    }
+   
 
     public void skillGauge_Rain()
     {

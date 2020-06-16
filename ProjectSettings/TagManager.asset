@@ -8,6 +8,7 @@ TagManager:
   - MonsterWeapon
   - Monster
   - Skill_1
+  - Fance
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +8,7 @@ public class Player : MonoBehaviour
     public int MoveSpeed = 40;
     public int startHp = 800;
     public int NowHp = 0;
-    public int takeDamage = 10;
+    public int takeDamage = 50;
 
     float WaitingTime = 2.0f;
     float timer = 0.0f;
@@ -29,7 +28,6 @@ public class Player : MonoBehaviour
     int AttackCheck = -1;
 
     Vector3 look;
-   
 
     public static Player GetInstance()
     {
@@ -70,14 +68,24 @@ public class Player : MonoBehaviour
     
     void Skill()
     {
+        Skill_a();
         Skill_s();
         Skill_d();
     }
+    public void Skill_a()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            animator.SetInteger("playerState", 8);
+        }
+    }
+
 
     void Skill_s()
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
+            animator.SetInteger("playerState", 9);
             Instantiate(Skill_S, transform.position + transform.forward * 15, transform.rotation);
         }
     }
@@ -86,6 +94,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
+            animator.SetInteger("playerState", 10);
             Instantiate(Skill_D, transform.position, transform.rotation);
         }
     }
@@ -107,6 +116,18 @@ public class Player : MonoBehaviour
             {
                 MoveSpeed = 0;
                 GetComponent<AudioSource>().Play();
+            }
+            else if (Input.GetKey(KeyCode.A))
+            {
+                MoveSpeed = 0;
+            }
+            else if(Input.GetKey(KeyCode.S))
+            {
+                MoveSpeed = 0;
+            }
+            else if(Input.GetKey(KeyCode.D))
+            {
+                MoveSpeed = 0;
             }
             else
             {
@@ -195,7 +216,7 @@ public class Player : MonoBehaviour
             {
                 animator.SetInteger("playerState", 4);
                 timer = 0.0f;
-                MoveSpeed = 300;
+                MoveSpeed = 400;
             }
         }
     }
