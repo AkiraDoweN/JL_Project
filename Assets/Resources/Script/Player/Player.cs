@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public int MoveSpeed = 40;
+    public int MoveSpeed = 50;
     public int startHp = 800;
     public int NowHp = 0;
     public int takeDamage = 50;
@@ -17,17 +17,33 @@ public class Player : MonoBehaviour
 
     private Animator animator;
     static private Player _player;
-    public GameObject gameOverWindow;
-
+    
     public Slider hpSlider;
 
+    public GameObject gameOverWindow;
     public GameObject Skill_S;
     public GameObject Skill_D;
 
+    GameObject skillGauge_rain;
+    GameObject skillGauge_cloud;
+    GameObject skillGauge_wind;
+
+    public GameObject skill_cloud_Effect;
+    public GameObject skill_wind_Effect;
+
+
     float AttackTime = 0;
+    float EffectTimer = 0;
     int AttackCheck = -1;
 
     Vector3 look;
+    public GameObject skill_cloud_vt;
+    public GameObject skill_wind_vt;
+
+    Image image_rain;
+    Image image_cloud;
+    Image image_wind;
+    
 
     public static Player GetInstance()
     {
@@ -41,8 +57,14 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        this.skillGauge_rain = GameObject.Find("rainSkill");
+        this.skillGauge_cloud = GameObject.Find("cloudSkill");
+        this.skillGauge_wind = GameObject.Find("windSkill");
         NowHp = startHp;
         animator = GetComponent<Animator>();
+        image_rain = skillGauge_rain.GetComponent<Image>();
+        image_cloud = skillGauge_cloud.GetComponent<Image>();
+        image_wind = skillGauge_wind.GetComponent<Image>();
     }
 
     void Update()
@@ -56,46 +78,64 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "MonsterWeapon")
         {
-                animator.SetInteger("playerState", 3);
-                NowHp -= takeDamage;
-                hpSlider.value = NowHp;
+            animator.SetInteger("playerState", 3);
+            NowHp -= takeDamage;
+            hpSlider.value = NowHp;
+            //Hit_Effect.SetActive(true);
+
             if (NowHp <= 0)
             {
                 Dead();
             }
         }
+        else
+        {
+            //Hit_Effect.SetActive(false);
+
+        }
     }
     
     void Skill()
     {
-        Skill_a();
-        Skill_s();
-        Skill_d();
+        Skill_rain();
+        Skill_cloud();
+        Skill_wind();
     }
-    public void Skill_a()
+    public void Skill_rain()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (skillGauge_rain.GetComponent<Image>().fillAmount >= 1)
         {
-            animator.SetInteger("playerState", 8);
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                animator.SetInteger("playerState", 8);
+            }
         }
     }
 
 
-    void Skill_s()
+    void Skill_cloud()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (skillGauge_cloud.GetComponent<Image>().fillAmount >= 1)
         {
-            animator.SetInteger("playerState", 9);
-            Instantiate(Skill_S, transform.position + transform.forward * 15, transform.rotation);
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                animator.SetInteger("playerState", 9);
+                Instantiate(Skill_S, transform.position + transform.forward * 15, transform.rotation);
+                Instantiate(skill_cloud_Effect, skill_cloud_vt.transform.position + transform.forward * 15, transform.rotation);
+            }
         }
     }
 
-    void Skill_d()
+    void Skill_wind()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        if (skillGauge_wind.GetComponent<Image>().fillAmount >= 1)
         {
-            animator.SetInteger("playerState", 10);
-            Instantiate(Skill_D, transform.position, transform.rotation);
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                animator.SetInteger("playerState", 10);
+                Instantiate(Skill_D, transform.position, transform.rotation);
+                Instantiate(skill_wind_Effect, skill_wind_vt.transform.position, transform.rotation);
+            }
         }
     }
 
@@ -117,21 +157,21 @@ public class Player : MonoBehaviour
                 MoveSpeed = 0;
                 GetComponent<AudioSource>().Play();
             }
-            else if (Input.GetKey(KeyCode.A))
+            else if (Input.GetKey(KeyCode.Alpha1))
             {
                 MoveSpeed = 0;
             }
-            else if(Input.GetKey(KeyCode.S))
+            else if(Input.GetKey(KeyCode.Alpha2))
             {
                 MoveSpeed = 0;
             }
-            else if(Input.GetKey(KeyCode.D))
+            else if(Input.GetKey(KeyCode.Alpha3))
             {
                 MoveSpeed = 0;
             }
             else
             {
-                MoveSpeed = 40;
+                MoveSpeed = 50;
                 GetComponent<AudioSource>().Stop();
             }
         }
@@ -190,6 +230,7 @@ public class Player : MonoBehaviour
             animator.SetInteger("playerState", 7);
         }
         if (Time.time - AttackTime > 0.531)
+        //if (Time.time - AttackTime > 0.531)
         {
             AttackCheck = -1;
             animator.SetInteger("playerState", 0);
@@ -216,7 +257,7 @@ public class Player : MonoBehaviour
             {
                 animator.SetInteger("playerState", 4);
                 timer = 0.0f;
-                MoveSpeed = 400;
+                MoveSpeed = 1000;
             }
         }
     }

@@ -13,7 +13,9 @@ public class Gurgugi : Monster
     [SerializeField]
     private Material[] skin;
     [SerializeField]
-    private int takeDamage = 200;
+    private int takeDamage = 20;
+    [SerializeField]
+    private int skillTakeDamage = 200;
     [SerializeField]
     private float Knock_back_power = 10;
     NavMeshAgent nav;
@@ -52,9 +54,6 @@ public class Gurgugi : Monster
         anim.SetInteger("state", 3);
         NowHp = StartHp;
         SetType();
-
-        //bullet = Instantiate(Resources.Load("Prefabs/Skill_Rain_Bullet")) as GameObject;
-        //this.bulletposition = GameObject.Find("Skill_Rain");
     }
 
     void SetType()
@@ -85,18 +84,18 @@ public class Gurgugi : Monster
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.tag == "PlayerWeapon" && Time.time - invincibility_time > 0.08f)
-        //{
-        //    NowHp -= takeDamage;
-        //    anim.SetInteger("state", 1);
-        //    invincibility_time = Time.time;
-        //    if (NowHp <= 0)
-        //        Dead();
-        //    Knock_back(other.gameObject.transform.position);
-        //}
-        if (other.tag == "Skill_1" && Time.time - invincibility_time > 0.32f)
+        if (other.tag == "PlayerWeapon" && Time.time - invincibility_time > 0.08f)
         {
             NowHp -= takeDamage;
+            anim.SetInteger("state", 1);
+            invincibility_time = Time.time;
+            if (NowHp <= 0)
+                Dead();
+            Knock_back(other.gameObject.transform.position);
+        }
+        if (other.tag == "Skill_1" && Time.time - invincibility_time > 0.32f)
+        {
+            NowHp -= skillTakeDamage;
             anim.SetInteger("state", 1);
             invincibility_time = Time.time;
             if (NowHp <= 0)
@@ -181,7 +180,7 @@ public class Gurgugi : Monster
         }
         else if(Time.time - StateTimechk[0] >= 0.7115385f)
         {
-            nav.speed = 30f;
+            nav.speed = 10f;
             anim.SetInteger("state", 3);
             attack.SetActive(false);
         }
@@ -226,14 +225,14 @@ public class Gurgugi : Monster
     }
     public void skillGauge_Rain()
     {
-        this.skillGauge_rain.GetComponent<Image>().fillAmount += 0.125f;
+        this.skillGauge_rain.GetComponent<Image>().fillAmount += 0.005f;
     }
     public void skillGauge_Rain_skill()
     {
-        if (skillGauge_rain.GetComponent<Image>().fillAmount >= 1)
+        if (skillGauge_rain.GetComponent<Image>().fillAmount >= 1.0f)
         {
             image_rain.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_rain") as Sprite;
-            if (Input.GetKeyUp(KeyCode.Q))
+            if (Input.GetKeyUp(KeyCode.Alpha1))
             {
                 image_rain.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_B") as Sprite;
                 skillGauge_rain.GetComponent<Image>().fillAmount = 0;
@@ -242,8 +241,7 @@ public class Gurgugi : Monster
     }
     public void skillGauge_Cloud()
     {
-        this.skillGauge_cloud.GetComponent<Image>().fillAmount += 0.125f;
-       
+        this.skillGauge_cloud.GetComponent<Image>().fillAmount += 0.005f;
     }
     public void skillGauge_Cloud_skill()
     {
@@ -252,7 +250,7 @@ public class Gurgugi : Monster
         {
             image_cloud.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_cloud") as Sprite;
         }
-        if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKeyUp(KeyCode.Alpha2))
         {
             image_cloud.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Y") as Sprite;
             skillGauge_cloud.GetComponent<Image>().fillAmount = 0;
@@ -260,7 +258,7 @@ public class Gurgugi : Monster
     }
     public void skillGauge_Wind()
     {
-        this.skillGauge_wind.GetComponent<Image>().fillAmount += 0.125f;
+        this.skillGauge_wind.GetComponent<Image>().fillAmount += 0.005f;
     }
     public void skillGauge_Wind_skill()
     {
@@ -268,7 +266,7 @@ public class Gurgugi : Monster
         {
             image_wind.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_wind") as Sprite;
         }
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.Alpha3))
         {
             image_wind.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_G") as Sprite;
             skillGauge_wind.GetComponent<Image>().fillAmount = 0;

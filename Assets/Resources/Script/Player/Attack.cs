@@ -16,16 +16,16 @@ public class Attack : MonoBehaviour
     [SerializeField]
     private TYPE type;
     //속성에 따른 빛
-    [SerializeField]
-    private Light playerLight;
+    //[SerializeField]
+    //private Light playerLight;
     
     public GameObject coll;
     float attackTimer = 0;
     float EffectTimer = 0;
 
-    public GameObject effectLight_b;
-    public GameObject effectLight_y;
-    public GameObject effectLight_g;
+    //public GameObject effectLight_b;
+    //public GameObject effectLight_y;
+    //public GameObject effectLight_g;
 
     public GameObject Swordeffect;
 
@@ -40,11 +40,6 @@ public class Attack : MonoBehaviour
     public AudioClip AttackSound;
 
     private Gurgugi gurgugi;
-
-    public bool Player_Rain;
-    public bool Player_Cloud;
-    public bool Player_Wind;
-
 
     void Start()
     {
@@ -73,15 +68,15 @@ public class Attack : MonoBehaviour
 
     void WeaponChange()
     {
-        if (Input.GetKey(KeyCode.Q)) //Rain
+        if (Input.GetKey(KeyCode.Alpha1)) //Rain
         {
             type = TYPE.RAIN;
         }
-        else if (Input.GetKey(KeyCode.W)) //Cloud
+        else if (Input.GetKey(KeyCode.Alpha2)) //Cloud
         {
             type = TYPE.CLOUD;
         }
-        else if (Input.GetKey(KeyCode.E)) //Wind
+        else if (Input.GetKey(KeyCode.Alpha2)) //Wind
         {
             type = TYPE.WIND;
         }
@@ -98,32 +93,22 @@ public class Attack : MonoBehaviour
         switch(type)
         {
             case TYPE.RAIN:
-                playerLight.color = new Color(0.0f, 0.28f, 1f, 1);
-                effectLight_b.SetActive(true);
-                effectLight_g.SetActive(false);
-                effectLight_y.SetActive(false);
-                Player_Rain = true;
-                Player_Cloud = false;
-                Player_Wind = false;
+                //playerLight.color = new Color(0.0f, 0.28f, 1f, 1);
+                //effectLight_b.SetActive(true);
+                //effectLight_g.SetActive(false);
+                //effectLight_y.SetActive(false);
                 break;
             case TYPE.CLOUD:
-                playerLight.color = new Color(1f, 0.92f, 0.08f, 1);
-                effectLight_b.SetActive(false);
-                effectLight_g.SetActive(false);
-                effectLight_y.SetActive(true);
-                Player_Rain = false;
-                Player_Cloud = true;
-                Player_Wind = false;
+                //playerLight.color = new Color(1f, 0.92f, 0.08f, 1);
+                //effectLight_b.SetActive(false);
+                //effectLight_g.SetActive(false);
+                //effectLight_y.SetActive(true);
                 break;
             case TYPE.WIND:
-                playerLight.color = new Color(0.20f, 0.92f, 0.09f, 1);
-                effectLight_b.SetActive(false);
-                effectLight_g.SetActive(true);
-                effectLight_y.SetActive(false);
-                Player_Rain = false;
-                Player_Cloud = false;
-                Player_Wind = true;
-
+                //playerLight.color = new Color(0.20f, 0.92f, 0.09f, 1);
+                //effectLight_b.SetActive(false);
+                //effectLight_g.SetActive(true);
+                //effectLight_y.SetActive(false);
                 break;
         }
     }
@@ -132,7 +117,7 @@ public class Attack : MonoBehaviour
         
         if (attackTimer == 0)
         {
-            if (Input.GetKey(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 attackTimer = Time.time;
                 audio.Play();
@@ -156,7 +141,7 @@ public class Attack : MonoBehaviour
     {
         if (EffectTimer == 0)
         {
-            if (Input.GetKey(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 EffectTimer = Time.time;
             }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6268901192906608426}
   - component: {fileID: 903236691150722059}
   - component: {fileID: 474436110545520391}
+  - component: {fileID: 1689534534254119614}
   m_Layer: 10
   m_Name: Gurgugi_h
   m_TagString: Monster
@@ -56,7 +57,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 9bf82c95cf1c92b408979354b27b0e46, type: 2}
   - {fileID: 2100000, guid: 9de9f98168f853246beecb3559bf19e9, type: 2}
   - {fileID: 2100000, guid: c15c660cd3765ac49bd21aa8a98b96e5, type: 2}
-  takeDamage: 200
+  takeDamage: 20
+  skillTakeDamage: 200
   Knock_back_power: 10
   renderer: {fileID: 2601056915077642630}
   attack: {fileID: 1969000875188279453}
@@ -113,10 +115,10 @@ SphereCollider:
   m_GameObject: {fileID: 190849894458222778}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 4.5
-  m_Center: {x: 0, y: 4.79, z: 0.5}
+  m_Radius: 4.7
+  m_Center: {x: 1.04, y: 4.79, z: 0.75}
 --- !u!54 &474436110545520391
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -133,6 +135,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
+--- !u!136 &1689534534254119614
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190849894458222778}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 4.7
+  m_Height: 11.59
+  m_Direction: 1
+  m_Center: {x: 1.04, y: 5.85, z: 0.75}
 --- !u!1 &491096767497543247
 GameObject:
   m_ObjectHideFlags: 0
