@@ -232,7 +232,7 @@ public class Gurgugi : Monster
         if (skillGauge_rain.GetComponent<Image>().fillAmount >= 1.0f)
         {
             image_rain.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_rain") as Sprite;
-            if (Input.GetKeyUp(KeyCode.Alpha1))
+            if (Input.GetKeyUp(KeyCode.Q))
             {
                 image_rain.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_B") as Sprite;
                 skillGauge_rain.GetComponent<Image>().fillAmount = 0;
@@ -249,12 +249,13 @@ public class Gurgugi : Monster
         if (skillGauge_cloud.GetComponent<Image>().fillAmount >= 1.0f)
         {
             image_cloud.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_cloud") as Sprite;
+            if (Input.GetKeyUp(KeyCode.W))
+            {
+                image_cloud.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Y") as Sprite;
+                skillGauge_cloud.GetComponent<Image>().fillAmount = 0;
+            }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha2))
-        {
-            image_cloud.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Y") as Sprite;
-            skillGauge_cloud.GetComponent<Image>().fillAmount = 0;
-        }
+       
     }
     public void skillGauge_Wind()
     {
@@ -265,11 +266,11 @@ public class Gurgugi : Monster
         if (skillGauge_wind.GetComponent<Image>().fillAmount >= 1.0f)
         {
             image_wind.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_wind") as Sprite;
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha3))
-        {
-            image_wind.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_G") as Sprite;
-            skillGauge_wind.GetComponent<Image>().fillAmount = 0;
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                image_wind.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_G") as Sprite;
+                skillGauge_wind.GetComponent<Image>().fillAmount = 0;
+            }
         }
     }
 }

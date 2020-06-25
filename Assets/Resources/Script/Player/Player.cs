@@ -105,19 +105,18 @@ public class Player : MonoBehaviour
     {
         if (skillGauge_rain.GetComponent<Image>().fillAmount >= 1)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 animator.SetInteger("playerState", 8);
             }
         }
     }
 
-
     void Skill_cloud()
     {
         if (skillGauge_cloud.GetComponent<Image>().fillAmount >= 1)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 animator.SetInteger("playerState", 9);
                 Instantiate(Skill_S, transform.position + transform.forward * 15, transform.rotation);
@@ -130,7 +129,7 @@ public class Player : MonoBehaviour
     {
         if (skillGauge_wind.GetComponent<Image>().fillAmount >= 1)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 animator.SetInteger("playerState", 10);
                 Instantiate(Skill_D, transform.position, transform.rotation);
@@ -157,15 +156,15 @@ public class Player : MonoBehaviour
                 MoveSpeed = 0;
                 GetComponent<AudioSource>().Play();
             }
-            else if (Input.GetKey(KeyCode.Alpha1))
+            else if (Input.GetKey(KeyCode.Q))
             {
                 MoveSpeed = 0;
             }
-            else if(Input.GetKey(KeyCode.Alpha2))
+            else if(Input.GetKey(KeyCode.W))
             {
                 MoveSpeed = 0;
             }
-            else if(Input.GetKey(KeyCode.Alpha3))
+            else if(Input.GetKey(KeyCode.E))
             {
                 MoveSpeed = 0;
             }
@@ -184,7 +183,6 @@ public class Player : MonoBehaviour
 
     public void Attack()
     {
-
         if (Input.GetKeyDown(KeyCode.R) && AttackCheck == -1)
         {
             AttackCheck = 0;

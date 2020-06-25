@@ -68,15 +68,15 @@ public class Attack : MonoBehaviour
 
     void WeaponChange()
     {
-        if (Input.GetKey(KeyCode.Alpha1)) //Rain
+        if (Input.GetKey(KeyCode.Q)) //Rain
         {
             type = TYPE.RAIN;
         }
-        else if (Input.GetKey(KeyCode.Alpha2)) //Cloud
+        else if (Input.GetKey(KeyCode.W)) //Cloud
         {
             type = TYPE.CLOUD;
         }
-        else if (Input.GetKey(KeyCode.Alpha2)) //Wind
+        else if (Input.GetKey(KeyCode.E)) //Wind
         {
             type = TYPE.WIND;
         }

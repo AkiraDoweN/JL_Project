@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
     {
         if (skillGauge_rain.GetComponent<Image>().fillAmount >= 1)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 GameObject bulletObject = Instantiate(bullet);
                 bulletObject.transform.position = transform.position + transform.forward;
