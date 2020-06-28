@@ -13,7 +13,7 @@ public class SenceChange : MonoBehaviour
     }
     public void ChangeGameScene()
     {
-        SceneManager.LoadScene("SubSence");
+        SceneManager.LoadScene("GameScene");
         Time.timeScale = 1;
 
     }

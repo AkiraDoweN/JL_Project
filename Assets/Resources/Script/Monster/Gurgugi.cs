@@ -17,7 +17,7 @@ public class Gurgugi : Monster
     [SerializeField]
     private int skillTakeDamage = 200;
     [SerializeField]
-    private float Knock_back_power = 10;
+    private float Knock_back_power = 1.5f;
     NavMeshAgent nav;
     public Renderer renderer;
     public GameObject attack;
@@ -39,11 +39,18 @@ public class Gurgugi : Monster
     public bool Monster_Cloud;
     public bool Monster_Wind;
 
+    public ParticleSystem Effect_Blue;
+    public ParticleSystem Effect_Yellow;
+    public ParticleSystem Effect_Green;
+    public ParticleSystem Effect_White;
+
+
     void Start()
     {
         this.skillGauge_rain = GameObject.Find("rainSkill");
         this.skillGauge_cloud = GameObject.Find("cloudSkill");
         this.skillGauge_wind = GameObject.Find("windSkill");
+
         image_rain = skillGauge_rain.GetComponent<Image>();
         image_cloud = skillGauge_cloud.GetComponent<Image>();
         image_wind = skillGauge_wind.GetComponent<Image>();
@@ -54,6 +61,15 @@ public class Gurgugi : Monster
         anim.SetInteger("state", 3);
         NowHp = StartHp;
         SetType();
+
+        Effect_Blue = GetComponent<ParticleSystem>();
+        Effect_Yellow = GetComponent<ParticleSystem>();
+        Effect_Green = GetComponent<ParticleSystem>();
+        Effect_White = GetComponent<ParticleSystem>();
+        Effect_Blue.Stop();
+        Effect_Yellow.Stop();
+        Effect_Green.Stop();
+        Effect_White.Stop();
     }
 
     void SetType()
@@ -92,7 +108,46 @@ public class Gurgugi : Monster
             if (NowHp <= 0)
                 Dead();
             Knock_back(other.gameObject.transform.position);
+            Effect_White.Play();
+            //if (Monster_Rain == true)
+            //{
+            //    NowHp -= takeDamage;
+            //    anim.SetInteger("state", 1);
+            //    invincibility_time = Time.time;
+            //    if (NowHp <= 0)
+            //        Dead();
+            //    Knock_back(other.gameObject.transform.position);
+            //    Effect_Blue.Play();
+            //}
+            //else if (Monster_Cloud == true)
+            //{
+            //    NowHp -= takeDamage;
+            //    anim.SetInteger("state", 1);
+            //    invincibility_time = Time.time;
+            //    if (NowHp <= 0)
+            //        Dead();
+            //    Knock_back(other.gameObject.transform.position);
+            //    Effect_Yellow.Play();
+            //}
+            //else if (Monster_Wind == true)
+            //{
+            //    NowHp -= takeDamage;
+            //    anim.SetInteger("state", 1);
+            //    invincibility_time = Time.time;
+            //    if (NowHp <= 0)
+            //        Dead();
+            //    Knock_back(other.gameObject.transform.position);
+            //    Effect_Green.Play();
+            //}
+            //else
+            //{
+            //    Effect_Blue.Stop();
+            //    Effect_Yellow.Stop();
+            //    Effect_Green.Stop();
+            //}
         }
+       
+
         if (other.tag == "Skill_1" && Time.time - invincibility_time > 0.32f)
         {
             NowHp -= skillTakeDamage;
@@ -174,13 +229,14 @@ public class Gurgugi : Monster
     {
         if(StateTimechk[0] == 0)
         {
+            anim.SetInteger("state", 0);
             StateTimechk[0] = Time.time;
             nav.speed = 0;
             attack.SetActive(true);
         }
         else if(Time.time - StateTimechk[0] >= 0.7115385f)
         {
-            nav.speed = 10f;
+            nav.speed = 12.0f;
             anim.SetInteger("state", 3);
             attack.SetActive(false);
         }
@@ -225,7 +281,7 @@ public class Gurgugi : Monster
     }
     public void skillGauge_Rain()
     {
-        this.skillGauge_rain.GetComponent<Image>().fillAmount += 0.005f;
+        this.skillGauge_rain.GetComponent<Image>().fillAmount += 0.0195f;
     }
     public void skillGauge_Rain_skill()
     {

@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public int MoveSpeed = 50;
+    public float MoveSpeed = 50.0f;
     public int startHp = 800;
     public int NowHp = 0;
     public int takeDamage = 50;
@@ -16,8 +17,9 @@ public class Player : MonoBehaviour
     float VerticalMove;
 
     private Animator animator;
+
     static private Player _player;
-    
+
     public Slider hpSlider;
 
     public GameObject gameOverWindow;
@@ -31,19 +33,27 @@ public class Player : MonoBehaviour
     public GameObject skill_cloud_Effect;
     public GameObject skill_wind_Effect;
 
-
     float AttackTime = 0;
     float EffectTimer = 0;
     int AttackCheck = -1;
 
     Vector3 look;
+    Vector3 Attack_look;
     public GameObject skill_cloud_vt;
     public GameObject skill_wind_vt;
 
     Image image_rain;
     Image image_cloud;
     Image image_wind;
-    
+
+    public ParticleSystem dash_Effect;
+    //public GameObject dash_Effect;
+
+    private int BossCount;
+
+    public GameObject attackCollider_1;
+    public GameObject attackCollider_2;
+    public GameObject attackCollider_3;
 
     public static Player GetInstance()
     {
@@ -65,6 +75,10 @@ public class Player : MonoBehaviour
         image_rain = skillGauge_rain.GetComponent<Image>();
         image_cloud = skillGauge_cloud.GetComponent<Image>();
         image_wind = skillGauge_wind.GetComponent<Image>();
+        dash_Effect = GetComponent<ParticleSystem>();
+        dash_Effect.Stop();
+
+        BossCount = 0;
     }
 
     void Update()
@@ -81,20 +95,14 @@ public class Player : MonoBehaviour
             animator.SetInteger("playerState", 3);
             NowHp -= takeDamage;
             hpSlider.value = NowHp;
-            //Hit_Effect.SetActive(true);
 
             if (NowHp <= 0)
             {
                 Dead();
             }
         }
-        else
-        {
-            //Hit_Effect.SetActive(false);
-
-        }
     }
-    
+
     void Skill()
     {
         Skill_rain();
@@ -107,7 +115,9 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
+                MoveSpeed = 0;
                 animator.SetInteger("playerState", 8);
+                BossCount += 1;
             }
         }
     }
@@ -118,9 +128,11 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
+                MoveSpeed = 0;
                 animator.SetInteger("playerState", 9);
                 Instantiate(Skill_S, transform.position + transform.forward * 15, transform.rotation);
                 Instantiate(skill_cloud_Effect, skill_cloud_vt.transform.position + transform.forward * 15, transform.rotation);
+                BossCount += 1;
             }
         }
     }
@@ -131,47 +143,38 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                MoveSpeed = 0;
                 animator.SetInteger("playerState", 10);
                 Instantiate(Skill_D, transform.position, transform.rotation);
                 Instantiate(skill_wind_Effect, skill_wind_vt.transform.position, transform.rotation);
+                BossCount += 1;
             }
         }
     }
 
     public void Move()
     {
-         VerticalMove = Input.GetAxisRaw("Vertical");
-         HorizontalMove = Input.GetAxisRaw("Horizontal");
-         if (VerticalMove != 0 || HorizontalMove != 0)
-         {
+        VerticalMove = Input.GetAxisRaw("Vertical");
+        HorizontalMove = Input.GetAxisRaw("Horizontal");
+        if (VerticalMove != 0 || HorizontalMove != 0)
+        {
             look = new Vector3(HorizontalMove, 0, VerticalMove);
 
             transform.rotation = Quaternion.LookRotation(look);
             transform.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
-            if(AttackCheck == -1)
+            if (AttackCheck == -1)
                 animator.SetInteger("playerState", 1);
 
             if (Input.GetKey(KeyCode.R))
             {
-                MoveSpeed = 0;
                 GetComponent<AudioSource>().Play();
-            }
-            else if (Input.GetKey(KeyCode.Q))
-            {
-                MoveSpeed = 0;
-            }
-            else if(Input.GetKey(KeyCode.W))
-            {
-                MoveSpeed = 0;
-            }
-            else if(Input.GetKey(KeyCode.E))
-            {
-                MoveSpeed = 0;
+
             }
             else
             {
                 MoveSpeed = 50;
                 GetComponent<AudioSource>().Stop();
+
             }
         }
         else
@@ -183,65 +186,128 @@ public class Player : MonoBehaviour
 
     public void Attack()
     {
-        if (Input.GetKeyDown(KeyCode.R) && AttackCheck == -1)
+        if (AttackTime == 0)
         {
-            AttackCheck = 0;
-            AttackTime = Time.time;
-            animator.SetInteger("playerState", 2);
+            if (Input.GetKeyDown(KeyCode.R) && AttackCheck == -1)
+            {
+                AttackCheck = 0;
+                AttackTime = Time.time;
+                animator.SetInteger("playerState", 2);
+            }
         }
-        
+        else
+        {
+            if (Time.time - AttackTime > 0.2f)
+            {
+                attackCollider_1.SetActive(true);
+                attackCollider_2.SetActive(false);
+                attackCollider_3.SetActive(false);
+            }
+            if (Time.time - AttackTime > 0.6f)
+            {
+                attackCollider_1.SetActive(false);
+                attackCollider_2.SetActive(false);
+                attackCollider_3.SetActive(false);
+                AttackTime = 0;
+            }
+        }
         switch (AttackCheck)
         {
             case 0:
                 FirstAttack();
+                MoveSpeed = 0;
                 break;
             case 1:
                 SecondAttack();
+                MoveSpeed = 0;
                 break;
             case 2:
                 ThirdAttack();
+                MoveSpeed = 0;
                 break;
         }
     }
 
-    private void  FirstAttack()
+    private void FirstAttack()
     {
-        if (Time.time - AttackTime > 0.08 && Input.GetKeyDown(KeyCode.R))
+        if (Time.time - AttackTime > 0.01 && Input.GetKeyDown(KeyCode.R))
         {
             AttackCheck = 1;
             AttackTime = Time.time;
             animator.SetInteger("playerState", 6);
         }
-        if (Time.time - AttackTime > 0.51)
+        if (Time.time - AttackTime > 0.9)
         {
             AttackCheck = -1;
             animator.SetInteger("playerState", 0);
+            MoveSpeed = 50;
         }
+        
     }
 
     private void SecondAttack()
     {
-        if (Time.time - AttackTime > 0.08 && Input.GetKeyDown(KeyCode.R))
+        if (Time.time - AttackTime > 0.01 && Input.GetKeyDown(KeyCode.R))
+        // if (Time.time - AttackTime > 0.08 && Input.GetKeyDown(KeyCode.R))
         {
             AttackCheck = 2;
             AttackTime = Time.time;
             animator.SetInteger("playerState", 7);
         }
-        if (Time.time - AttackTime > 0.531)
+        if (Time.time - AttackTime > 0.6)
         //if (Time.time - AttackTime > 0.531)
         {
             AttackCheck = -1;
             animator.SetInteger("playerState", 0);
-
+            MoveSpeed = 50;
+        }
+        else
+        {
+            if (Time.time - AttackTime > 0.1f)
+            {
+                attackCollider_1.SetActive(false);
+                attackCollider_2.SetActive(true);
+                attackCollider_3.SetActive(false);
+            }
+            if (Time.time - AttackTime > 0.55f)
+            {
+                attackCollider_1.SetActive(false);
+                attackCollider_2.SetActive(false);
+                attackCollider_3.SetActive(false);
+                AttackTime = 0;
+            }
         }
     }
 
     private void ThirdAttack()
     {
-        if (Time.time - AttackTime > 0.625)
+        if (Time.time - AttackTime > 0.6 && Input.GetKeyDown(KeyCode.R))
         {
+            AttackCheck = 0;
+            AttackTime = Time.time;
+            animator.SetInteger("playerState", 2);
+        }
+        if (Time.time - AttackTime > 0.7)
+        {
+            MoveSpeed = 50;
             AttackCheck = -1;
             animator.SetInteger("playerState", 0);
+        }
+        else
+        {
+            if (Time.time - AttackTime > 0.1f)
+            {
+                attackCollider_1.SetActive(false);
+                attackCollider_2.SetActive(false);
+                attackCollider_3.SetActive(true);
+            }
+            if (Time.time - AttackTime > 0.7f)
+            {
+                attackCollider_1.SetActive(false);
+                attackCollider_2.SetActive(false);
+                attackCollider_3.SetActive(false);
+                AttackTime = 0;
+            }
         }
     }
 
@@ -255,19 +321,30 @@ public class Player : MonoBehaviour
             {
                 animator.SetInteger("playerState", 4);
                 timer = 0.0f;
-                MoveSpeed = 1000;
+                MoveSpeed = 500;
+                dash_Effect.Play();
+            }
+            else
+            {
+                dash_Effect.Stop();
             }
         }
+
     }
 
     public void Dead()
     {
         animator.SetInteger("playerState", 5); //죽는 애니메이션
         gameOverWindow.SetActive(true);
-        //Time.timeScale = 0;
+        Time.timeScale = 0;
     }
 
-   
+    public void Boss()
+    {
+        if (BossCount == 5) { }
+
+    }
+
 }
 
 

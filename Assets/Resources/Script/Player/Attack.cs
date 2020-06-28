@@ -41,6 +41,8 @@ public class Attack : MonoBehaviour
 
     private Gurgugi gurgugi;
 
+    public ParticleSystem weaponEffect;
+
     void Start()
     {
         this.skillGauge_rain = GameObject.Find("rainSkill");
@@ -55,11 +57,14 @@ public class Attack : MonoBehaviour
 
         audio = GetComponent<AudioSource>();
         audio.clip = AttackSound;
+
+        weaponEffect = GetComponent<ParticleSystem>();
+        weaponEffect.Play();
     }
 
     void Update()
     {
-        MonsterCheck();
+        //MonsterCheck();
         WeaponChange();
         WeaponEffect();
     }
@@ -114,7 +119,7 @@ public class Attack : MonoBehaviour
     }
     void MonsterCheck()
     {
-        
+
         if (attackTimer == 0)
         {
             if (Input.GetKeyDown(KeyCode.R))
@@ -129,13 +134,13 @@ public class Attack : MonoBehaviour
             {
                 coll.SetActive(true);
             }
-            if (Time.time - attackTimer > 0.51f)
+            if (Time.time - attackTimer > 0.6f)
             {
                 coll.SetActive(false);
                 attackTimer = 0;
             }
         }
-        
+
     }
     void WeaponEffect()
     {
@@ -152,7 +157,7 @@ public class Attack : MonoBehaviour
             {
                 Swordeffect.SetActive(true);
             }
-            if (Time.time - EffectTimer > 0.77f)
+            if (Time.time - EffectTimer > 0.6f)
             {
                 Swordeffect.SetActive(false);
                 EffectTimer = 0;
@@ -160,12 +165,14 @@ public class Attack : MonoBehaviour
         }
 
     }
-   
 
     public void skillGauge_Rain()
     {
-        this.skillGauge_rain.GetComponent<Image>().fillAmount += 0.125f;
-        if (skillGauge_rain.GetComponent<Image>().fillAmount >= 1)
+        this.skillGauge_rain.GetComponent<Image>().fillAmount += 0.005f;
+    }
+    public void skillGauge_Rain_skill()
+    {
+        if (skillGauge_rain.GetComponent<Image>().fillAmount >= 1.0f)
         {
             image_rain.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_rain") as Sprite;
             if (Input.GetKeyUp(KeyCode.Q))
@@ -175,61 +182,38 @@ public class Attack : MonoBehaviour
             }
         }
     }
-
     public void skillGauge_Cloud()
     {
-        this.skillGauge_cloud.GetComponent<Image>().fillAmount += 0.125f;
+        this.skillGauge_cloud.GetComponent<Image>().fillAmount += 0.005f;
+    }
+    public void skillGauge_Cloud_skill()
+    {
+
         if (skillGauge_cloud.GetComponent<Image>().fillAmount >= 1.0f)
         {
             image_cloud.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_cloud") as Sprite;
-        }
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            image_cloud.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Y") as Sprite;
-            skillGauge_cloud.GetComponent<Image>().fillAmount = 0;
+            if (Input.GetKeyUp(KeyCode.W))
+            {
+                image_cloud.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Y") as Sprite;
+                skillGauge_cloud.GetComponent<Image>().fillAmount = 0;
+            }
         }
     }
+
     public void skillGauge_Wind()
     {
-        this.skillGauge_wind.GetComponent<Image>().fillAmount += 0.125f;
+        this.skillGauge_wind.GetComponent<Image>().fillAmount += 0.005f;
+    }
+    public void skillGauge_Wind_skill()
+    {
         if (skillGauge_wind.GetComponent<Image>().fillAmount >= 1.0f)
         {
             image_wind.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_Full_wind") as Sprite;
-        }
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            image_wind.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_G") as Sprite;
-            skillGauge_wind.GetComponent<Image>().fillAmount = 0;
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                image_wind.sprite = Resources.Load<Sprite>("UI/Game/Skill_dash/JL_UI_skill_G") as Sprite;
+                skillGauge_wind.GetComponent<Image>().fillAmount = 0;
+            }
         }
     }
-
-
 }
-
-
-
-
-
-
-//void PlayerAttack(Collider colider)
-//{
-// colider.gameObject.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
-
-//몬스터속성 script bool값추가 (몬스터 속성과 Player 속성이 같을 경우 데미지 2배)
-//if (rainProperty == true && gurgugi.Property == true)
-//{
-//    Damage = 40;
-//}
-//else if (cloudProperty == true && gurgugi.Property == true)
-//{
-//    Damage = 40;
-//}
-//else if (windProperty == true && gurgugi.Property == true)
-//{
-//    Damage = 40;
-//}
-//else
-//{
-//    Damage = 20;
-//}
-//}

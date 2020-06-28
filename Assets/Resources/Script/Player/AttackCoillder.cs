@@ -4,19 +4,14 @@ using UnityEngine;
 
 public class AttackCoillder : MonoBehaviour
 {
-    private float Damage = 20.0f;
-
-    //private void OnTriggerStay(Collider other)
-    //{
-        
-    //}
+    public PlayerCamera cameraShaking;
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(1);
         if (other.gameObject.tag == "Monster")
         {
-            other.gameObject.GetComponent<Gurgugi>().TakeDamage(Damage);
+            StartCoroutine(cameraShaking.Shake(0.1f, 1.2f));
+            //StartCoroutine(cameraShaking.Shake(0.1f, 0.5f));
         }
     }
 
