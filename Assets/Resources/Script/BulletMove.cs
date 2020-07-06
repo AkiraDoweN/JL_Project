@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletMove : MonoBehaviour
 {
-    private float speed = 60.0f;
+    private float speed = 70.0f;
     public float Damage = 200;
 
     // Start is called before the first frame update
@@ -24,8 +24,7 @@ public class BulletMove : MonoBehaviour
         if (other.gameObject.tag == "Monster")
         {
             Kill_Monster(other);
-            Debug.Log("Bullet");
-            
+            Destroy(gameObject);
         }
         if (other.tag == "Fance")
         {
@@ -36,7 +35,6 @@ public class BulletMove : MonoBehaviour
     public void Kill_Monster(Collider collider)
     {
         collider.gameObject.GetComponent<Gurgugi>().TakeDamage(Damage);
-
 
     }
 }

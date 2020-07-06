@@ -12,7 +12,7 @@ public class Attack : MonoBehaviour
 {
     private Transform weapon;
 
-    public int Damage = 50;
+    public int Damage = 30;
     [SerializeField]
     private TYPE type;
     //속성에 따른 빛
@@ -66,7 +66,7 @@ public class Attack : MonoBehaviour
     {
         //MonsterCheck();
         WeaponChange();
-        WeaponEffect();
+        //WeaponEffect();
     }
 
     
@@ -142,29 +142,29 @@ public class Attack : MonoBehaviour
         }
 
     }
-    void WeaponEffect()
-    {
-        if (EffectTimer == 0)
-        {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                EffectTimer = Time.time;
-            }
-        }
-        else
-        {
-            if (Time.time - EffectTimer > 0.05f)
-            {
-                Swordeffect.SetActive(true);
-            }
-            if (Time.time - EffectTimer > 0.6f)
-            {
-                Swordeffect.SetActive(false);
-                EffectTimer = 0;
-            }
-        }
+    //void WeaponEffect()
+    //{
+    //    if (EffectTimer == 0)
+    //    {
+    //        if (Input.GetKeyDown(KeyCode.R))
+    //        {
+    //            EffectTimer = Time.time;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (Time.time - EffectTimer > 0.05f)
+    //        {
+    //            Swordeffect.SetActive(true);
+    //        }
+    //        if (Time.time - EffectTimer > 0.6f)
+    //        {
+    //            Swordeffect.SetActive(false);
+    //            EffectTimer = 0;
+    //        }
+    //    }
 
-    }
+    //}
 
     public void skillGauge_Rain()
     {

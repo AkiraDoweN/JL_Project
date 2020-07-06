@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{e9b4f01b-c0a1-4714-9a22-78be700a4428}">
+		<property name="assetPath">
+			<value>Player_attack_monster2_2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.42290249433106575</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{05e945f0-b5ad-418d-b6dd-538730db379c}</destination>
+		</relationship>
+	</object>
+</objects>

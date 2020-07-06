@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{ae9558f5-7aaa-4fe2-8eb9-3c42f4f92341}">
+		<property name="assetPath">
+			<value>Battle_night.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>60.072403628117911</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{05e945f0-b5ad-418d-b6dd-538730db379c}</destination>
+		</relationship>
+	</object>
+</objects>

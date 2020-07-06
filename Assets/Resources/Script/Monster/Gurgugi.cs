@@ -13,7 +13,7 @@ public class Gurgugi : Monster
     [SerializeField]
     private Material[] skin;
     [SerializeField]
-    private int takeDamage = 20;
+    private int takeDamage = 30;
     [SerializeField]
     private int skillTakeDamage = 200;
     [SerializeField]
@@ -43,7 +43,14 @@ public class Gurgugi : Monster
     public ParticleSystem Effect_Yellow;
     public ParticleSystem Effect_Green;
     public ParticleSystem Effect_White;
+    public ParticleSystem Effect_Skil_Blue;
 
+    private Player player;
+
+    private Rigidbody rigidbody;
+
+    public float dmamgeTimeout = 0.1f;
+    private bool canTakeDamage = true;
 
     void Start()
     {
@@ -66,10 +73,16 @@ public class Gurgugi : Monster
         Effect_Yellow = GetComponent<ParticleSystem>();
         Effect_Green = GetComponent<ParticleSystem>();
         Effect_White = GetComponent<ParticleSystem>();
+        Effect_Skil_Blue = GetComponent<ParticleSystem>();
         Effect_Blue.Stop();
         Effect_Yellow.Stop();
         Effect_Green.Stop();
         Effect_White.Stop();
+        Effect_Skil_Blue.Stop();
+
+        player = GameObject.Find("Player").GetComponent<Player>();
+
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     void SetType()
@@ -109,6 +122,7 @@ public class Gurgugi : Monster
                 Dead();
             Knock_back(other.gameObject.transform.position);
             Effect_White.Play();
+            //StartCoroutine(damageTimer());w
             //if (Monster_Rain == true)
             //{
             //    NowHp -= takeDamage;
@@ -156,8 +170,17 @@ public class Gurgugi : Monster
             if (NowHp <= 0)
                 Dead();
             Knock_back(other.gameObject.transform.position);
+            Effect_Skil_Blue.Play();
+
         }
 
+    }
+
+    private IEnumerator damageTimer()
+    {
+        canTakeDamage = false;
+        yield return new WaitForSeconds(dmamgeTimeout);
+        canTakeDamage = true;
     }
 
     void FixedUpdate()
@@ -232,13 +255,13 @@ public class Gurgugi : Monster
             anim.SetInteger("state", 0);
             StateTimechk[0] = Time.time;
             nav.speed = 0;
-            attack.SetActive(true);
+            //attack.SetActive(true);
         }
         else if(Time.time - StateTimechk[0] >= 0.7115385f)
         {
             nav.speed = 12.0f;
             anim.SetInteger("state", 3);
-            attack.SetActive(false);
+            //attack.SetActive(false);
         }
         nav.SetDestination(Target.position);
     }
@@ -264,6 +287,8 @@ public class Gurgugi : Monster
         }
         else if (Time.time - StateTimechk[2] >= 0.5f)
         {
+            if (player.NowHp < 800)
+                player.NowHp += 10;
             Destroy(gameObject);
         }
         if (Monster_Rain == true)
@@ -273,10 +298,13 @@ public class Gurgugi : Monster
         else if (Monster_Cloud == true)
         {
             skillGauge_Cloud();
+         
+
         }
         else if (Monster_Wind == true)
         {
             skillGauge_Wind();
+          
         }
     }
     public void skillGauge_Rain()
