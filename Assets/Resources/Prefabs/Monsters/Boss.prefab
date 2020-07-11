@@ -1835,6 +1835,8 @@ MonoBehaviour:
   attack: {fileID: 2163855205778214457}
   Boss_emergence: {fileID: 0}
   Effect_White: {fileID: 8536952388489151504}
+  damageTimeout: 1
+  Boss_hpSlider: {fileID: 0}
 --- !u!198 &1738711611138873856
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -6971,6 +6973,11 @@ PrefabInstance:
     - target: {fileID: 2892251640401206001, guid: 9b13284745ec9864487e7c314b38494f,
         type: 3}
       propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2892251640401206001, guid: 9b13284745ec9864487e7c314b38494f,
+        type: 3}
+      propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3208813224895984610, guid: 9b13284745ec9864487e7c314b38494f,

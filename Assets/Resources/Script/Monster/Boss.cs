@@ -16,7 +16,7 @@ public class Boss : MonoBehaviour
     [SerializeField]
     private int skillTakeDamage = 200;
     [SerializeField]
-    private float Knock_back_power = 1.5f;
+    private float Knock_back_power = 2f;
     float[] StateTimechk = new float[3];
     public Slider hpSlider;
 
@@ -64,7 +64,7 @@ public class Boss : MonoBehaviour
         {
             NowHp -= takeDamage;
             hpSlider.value = NowHp;
-            animtor.SetInteger("Boss_State", 3);
+            animtor.SetInteger("Boss_State", 1);
             invincibility_time = Time.time;
             if (NowHp <= 0)
                 Dead();
@@ -76,7 +76,7 @@ public class Boss : MonoBehaviour
         if (other.tag == "Skill_1" && Time.time - invincibility_time > 0.32f)
         {
             NowHp -= skillTakeDamage;
-            animtor.SetInteger("Boss_State", 3);
+            animtor.SetInteger("Boss_State", 1);
             invincibility_time = Time.time;
             if (NowHp <= 0)
                 Dead();

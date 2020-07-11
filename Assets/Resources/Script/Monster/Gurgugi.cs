@@ -17,7 +17,7 @@ public class Gurgugi : Monster
     [SerializeField]
     private int skillTakeDamage = 200;
     [SerializeField]
-    private float Knock_back_power = 1.5f;
+    private float Knock_back_power = 0.1f;
     NavMeshAgent nav;
     public Renderer renderer;
     public GameObject attack;
@@ -44,7 +44,7 @@ public class Gurgugi : Monster
 
     private Player player;
 
-    public float dmamgeTimeout = 0.1f;
+    public float dmamgeTimeout = 0.3f;
     private bool canTakeDamage = true;
 
     void Start()
@@ -106,19 +106,20 @@ public class Gurgugi : Monster
         {
             NowHp -= takeDamage;
             anim.SetInteger("state", 1);
+            StartCoroutine(damageTimer());
             invincibility_time = Time.time;
+
             if (NowHp <= 0)
                 Dead();
             Knock_back(other.gameObject.transform.position);
             Effect_White.Play();
-           
         }
-       
 
         if (other.tag == "Skill_1" && Time.time - invincibility_time > 0.32f)
         {
             NowHp -= skillTakeDamage;
             anim.SetInteger("state", 1);
+            StartCoroutine(damageTimer());
             invincibility_time = Time.time;
             if (NowHp <= 0)
                 Dead();
