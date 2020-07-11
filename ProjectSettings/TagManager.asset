@@ -9,6 +9,8 @@ TagManager:
   - Monster
   - Skill_1
   - Fance
+  - Boss
+  - BossWeapon
   layers:
   - Default
   - TransparentFX
@@ -24,7 +26,7 @@ TagManager:
   - Wall
   - Bullet
   - Monster
-  - 
+  - Boss
   - 
   - 
   - 

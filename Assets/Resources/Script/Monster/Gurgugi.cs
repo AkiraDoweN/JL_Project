@@ -38,16 +38,11 @@ public class Gurgugi : Monster
     public bool Monster_Rain;
     public bool Monster_Cloud;
     public bool Monster_Wind;
-
-    public ParticleSystem Effect_Blue;
-    public ParticleSystem Effect_Yellow;
-    public ParticleSystem Effect_Green;
+  
     public ParticleSystem Effect_White;
     public ParticleSystem Effect_Skil_Blue;
 
     private Player player;
-
-    private Rigidbody rigidbody;
 
     public float dmamgeTimeout = 0.1f;
     private bool canTakeDamage = true;
@@ -69,20 +64,14 @@ public class Gurgugi : Monster
         NowHp = StartHp;
         SetType();
 
-        Effect_Blue = GetComponent<ParticleSystem>();
-        Effect_Yellow = GetComponent<ParticleSystem>();
-        Effect_Green = GetComponent<ParticleSystem>();
         Effect_White = GetComponent<ParticleSystem>();
         Effect_Skil_Blue = GetComponent<ParticleSystem>();
-        Effect_Blue.Stop();
-        Effect_Yellow.Stop();
-        Effect_Green.Stop();
+       
         Effect_White.Stop();
         Effect_Skil_Blue.Stop();
 
         player = GameObject.Find("Player").GetComponent<Player>();
 
-        rigidbody = GetComponent<Rigidbody>();
     }
 
     void SetType()
@@ -122,43 +111,7 @@ public class Gurgugi : Monster
                 Dead();
             Knock_back(other.gameObject.transform.position);
             Effect_White.Play();
-            //StartCoroutine(damageTimer());w
-            //if (Monster_Rain == true)
-            //{
-            //    NowHp -= takeDamage;
-            //    anim.SetInteger("state", 1);
-            //    invincibility_time = Time.time;
-            //    if (NowHp <= 0)
-            //        Dead();
-            //    Knock_back(other.gameObject.transform.position);
-            //    Effect_Blue.Play();
-            //}
-            //else if (Monster_Cloud == true)
-            //{
-            //    NowHp -= takeDamage;
-            //    anim.SetInteger("state", 1);
-            //    invincibility_time = Time.time;
-            //    if (NowHp <= 0)
-            //        Dead();
-            //    Knock_back(other.gameObject.transform.position);
-            //    Effect_Yellow.Play();
-            //}
-            //else if (Monster_Wind == true)
-            //{
-            //    NowHp -= takeDamage;
-            //    anim.SetInteger("state", 1);
-            //    invincibility_time = Time.time;
-            //    if (NowHp <= 0)
-            //        Dead();
-            //    Knock_back(other.gameObject.transform.position);
-            //    Effect_Green.Play();
-            //}
-            //else
-            //{
-            //    Effect_Blue.Stop();
-            //    Effect_Yellow.Stop();
-            //    Effect_Green.Stop();
-            //}
+           
         }
        
 
@@ -171,7 +124,6 @@ public class Gurgugi : Monster
                 Dead();
             Knock_back(other.gameObject.transform.position);
             Effect_Skil_Blue.Play();
-
         }
 
     }

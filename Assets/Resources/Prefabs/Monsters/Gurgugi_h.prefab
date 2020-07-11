@@ -74,7 +74,7 @@ MonoBehaviour:
   Effect_Green: {fileID: 7395050243548532028}
   Effect_White: {fileID: 7392762390965077635}
   Effect_Skil_Blue: {fileID: 4921284192224579525}
-  dmamgeTimeout: 0.1
+  dmamgeTimeout: 0.5
 --- !u!95 &9140542917905575496
 Animator:
   serializedVersion: 3

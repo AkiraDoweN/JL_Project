@@ -6,12 +6,69 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Main.unity
+    path: Assets/Scenes/UnitySence/Main.unity
     guid: 864d066d78bc5cf4ca7942c1341dff91
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening.unity
+    guid: 4dfde6d0d171d854e846b848a673212b
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening2.unity
+    guid: ec1c49dcf341b754ca347ee9ada85206
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening3.unity
+    guid: 51588254e4a0aca46b13504646f70de4
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening4.unity
+    guid: e57e131a5adaeb245acee3bde93104c8
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening5.unity
+    guid: 3dccc5f132b0b0341b4fda14d58f05c4
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening6.unity
+    guid: 1e6233dc5862e054cab76c5bbec7a653
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening7.unity
+    guid: 1b384bb6613449146a1a00a4c2067f8d
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening8.unity
+    guid: a56e76448898540449e756c35b95afd2
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening9.unity
+    guid: 395b132976c437042b441cff693d20fc
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening10.unity
+    guid: f53e7662d60b07d4b8b0e489a9976f8b
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening11.unity
+    guid: b0eec23895bd23748a08c39294969406
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening12.unity
+    guid: 288a9c692a4088448b4cbb48a1801e05
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening13.unity
+    guid: 68b4540143e0faf42b64ca32ed1c9dc5
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/OpeningSence/Opening14.unity
+    guid: 8676de5dc8c574247b4f8729049f1d73
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/GameScene.unity
     guid: c31ac01c1a806884e87f7f8ca89ebd37
-  - enabled: 0
-    path: Assets/Scenes/SubSence.unity
-    guid: 0ae34e74e69a798459d6c592efb192e5
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/EndingSence/Ending 1.unity
+    guid: a2ddc64d4a0d11c4f90fc9c9e42a8e5f
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/EndingSence/Ending 2.unity
+    guid: 8e322036fc911ab41acd1b10b8b2e202
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/EndingSence/Ending 3.unity
+    guid: b7219b38ce2ebfa41b764368c6ac7bf4
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/EndingSence/Ending 4.unity
+    guid: 7ecb62cd261a1c04db739db044a2eb6a
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/EndingSence/Ending 5.unity
+    guid: 7a84ef4adb723dc4fb46ceed8b8b0d99
+  - enabled: 1
+    path: Assets/Scenes/UnitySence/EndingSence/Ending 6.unity
+    guid: 1792972f219d3a54cabb015c32e1a3db
   m_configObjects: {}

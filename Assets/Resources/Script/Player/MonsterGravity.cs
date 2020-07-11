@@ -32,7 +32,7 @@ public class MonsterGravity : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Monster")
-            gurgugi.NowHp -= 20;
+            gurgugi.NowHp -= 200;
     }
 
 }

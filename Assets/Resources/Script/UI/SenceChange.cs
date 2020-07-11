@@ -17,4 +17,9 @@ public class SenceChange : MonoBehaviour
         Time.timeScale = 1;
 
     }
+
+    public void OpeningStart()
+    {
+        SceneManager.LoadScene("Opening");
+    }
 }

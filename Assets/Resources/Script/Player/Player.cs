@@ -9,7 +9,8 @@ public class Player : MonoBehaviour
     public float MoveSpeed = 50.0f;
     public int startHp = 800;
     public int NowHp = 0;
-    public int takeDamage = 50;
+    public int takeDamage = 10;
+    public int Boss_takeDamage = 20;
 
     float WaitingTime = 2.0f;
     float timer = 0.0f;
@@ -56,12 +57,14 @@ public class Player : MonoBehaviour
 
     Rigidbody rigidbody;
 
-    public float damageTimeout = 0.7f;
+    public float damageTimeout = 1f;
     private bool canTakeDamage = true;
 
     public GameObject Swordeffect1;
     public GameObject Swordeffect2;
     public GameObject Swordeffect3;
+
+    public GameObject Boss;
 
     public static Player GetInstance()
     {
@@ -96,6 +99,7 @@ public class Player : MonoBehaviour
         Dash();
         Attack();
         Skill();
+        Boss_Event();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -110,7 +114,19 @@ public class Player : MonoBehaviour
                 Dead();
             }
         }
+        if (canTakeDamage && other.tag == "BossWeapon")
+        {
+            animator.SetInteger("playerState", 3);
+            NowHp -= Boss_takeDamage;
+            hpSlider.value = NowHp;
+            StartCoroutine(damageTimer());
+            if (NowHp <= 0)
+            {
+                Dead();
+            }
+        }
     }
+
     private IEnumerator damageTimer()
     {
         canTakeDamage = false;
@@ -181,33 +197,21 @@ public class Player : MonoBehaviour
             Vector3 look1 =  transform.forward.normalized * MoveSpeed;
             look1.y = rigidbody.velocity.y;
             rigidbody.velocity = look1;
-
+            MoveSpeed = 50;
             if (AttackCheck == -1)
                 animator.SetInteger("playerState", 1);
 
-            if (Input.GetKey(KeyCode.R))
-            {
-                GetComponent<AudioSource>().Play();
-
-            }
-            else
-            {
-                MoveSpeed = 50;
-                GetComponent<AudioSource>().Stop();
-            }
         }
         else
         {
             if (AttackCheck == -1)
                 animator.SetInteger("playerState", 0);
             rigidbody.velocity = new Vector3(0, rigidbody.velocity.y , 0);
-
         }
     }
 
     public void Attack()
     {
-
         if (AttackTime == 0 && EffectTimer == 0)
         {
             if (Input.GetKeyDown(KeyCode.R) && AttackCheck == -1)
@@ -216,7 +220,6 @@ public class Player : MonoBehaviour
                 AttackTime = Time.time;
                 EffectTimer = Time.time;
                 animator.SetInteger("playerState", 2);
-
             }
         }
         else
@@ -267,7 +270,6 @@ public class Player : MonoBehaviour
 
     private void FirstAttack()
     {
-        
         if (Time.time - AttackTime > 0.01 && Input.GetKeyDown(KeyCode.R))
         {
             AttackCheck = 1;
@@ -280,7 +282,6 @@ public class Player : MonoBehaviour
             animator.SetInteger("playerState", 0);
             MoveSpeed = 50;
         }
-        
     }
 
     private void SecondAttack()
@@ -334,8 +335,6 @@ public class Player : MonoBehaviour
 
     private void ThirdAttack()
     {
-       
-
         if (Time.time - AttackTime > 0.6 && Input.GetKeyDown(KeyCode.R))
         {
             AttackCheck = 0;
@@ -396,6 +395,7 @@ public class Player : MonoBehaviour
             }
             else
             {
+                MoveSpeed = 50;
                 dash_Effect.Stop();
             }
         }
@@ -409,12 +409,14 @@ public class Player : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public void Boss()
+    public void Boss_Event()
     {
-        if (BossCount == 5) { }
-
+        if (BossCount == 3) {
+            Boss.SetActive(true);
+        }
     }
 
+   
 }
 
 

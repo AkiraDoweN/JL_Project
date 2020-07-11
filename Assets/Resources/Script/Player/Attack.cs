@@ -36,9 +36,6 @@ public class Attack : MonoBehaviour
     Image image_cloud;
     Image image_wind;
 
-    private AudioSource audio;
-    public AudioClip AttackSound;
-
     private Gurgugi gurgugi;
 
     public ParticleSystem weaponEffect;
@@ -54,9 +51,6 @@ public class Attack : MonoBehaviour
 
         weapon = GetComponent<Transform>();
         type = TYPE.RAIN;
-
-        audio = GetComponent<AudioSource>();
-        audio.clip = AttackSound;
 
         weaponEffect = GetComponent<ParticleSystem>();
         weaponEffect.Play();
@@ -125,7 +119,6 @@ public class Attack : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 attackTimer = Time.time;
-                audio.Play();
             }
         }
         else

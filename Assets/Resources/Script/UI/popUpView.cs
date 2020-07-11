@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class popUpView : MonoBehaviour
 {
     public GameObject optionWindow;
-    public GameObject startView;
 
     bool IsOptionWindow;
 
+    
     public void gameSettings()
     {
         optionWindow.SetActive(true);
@@ -23,7 +23,6 @@ public class popUpView : MonoBehaviour
 
     private void Update()
     {
-        TimeView();
         if(IsOptionWindow == true)
         {
             if(Input.GetKeyDown(KeyCode.Escape)){
@@ -32,15 +31,7 @@ public class popUpView : MonoBehaviour
             }
         }
     }
-    public void TimeView()
-    {
-        if(Time.time > 4)
-        {
-            startView.SetActive(false);
-
-        }
-    }
-
+    
     public void quitGame()
     {
         Application.Quit();
